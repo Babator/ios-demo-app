@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class ScreenManager;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (strong, nonatomic) ScreenManager *screenManager;
 
 @end
 

@@ -1,0 +1,32 @@
+/* 
+  Localizable.strings
+  BCScheduling
+
+  Created by Andrey Kulinskiy on 4/10/14.
+  Copyright (c) 2014 Andrey Kulinskiy. All rights reserved.
+*/
+
+"***Alert" = "";
+"***Ok" = "Ok";
+"***Cancel" = "Cancel";
+"***Close" = "Close";
+"***Yes" = "Yes";
+"***YES" = "YES";
+"***No" = "No";
+"***Save" = "Save";
+"***Done" = "Done";
+"***Send" = "Send";
+"***Delete" = "Delete";
+"***GoToShift" = "Go to Shift";
+"***Approve" = "Approve";
+"***Agree" = "Agree";
+"***AGREE" = "AGREE";
+"***DISAGREE" = "DISAGREE";
+"***Decline" = "Decline";
+"***GotoRequests" = "Go to Requests";
+"***GotoSchedule" = "Go to Schedule";
+
+
+
+
+

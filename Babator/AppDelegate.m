@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ScreenManager.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    self.screenManager = [[ScreenManager alloc]initWithMainWindow:self.window];
+    
     return YES;
 }
 
