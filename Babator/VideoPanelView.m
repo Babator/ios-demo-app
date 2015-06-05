@@ -31,6 +31,7 @@
     [self addSubview:self.btnPlayPause];
     [self addSubview:self.btnBack];
     [self addSubview:self.btnFullScreen];
+    [self addSubview:self.slider];
 }
 
 #pragma mark -
@@ -41,6 +42,7 @@
     self.btnBack.frame = CGRectMake(10, 0, 40, self.height);
     self.btnPlayPause.frame = CGRectMake(self.btnBack.edgeX + 10, 0, 40, self.height);
     self.btnFullScreen.frame = CGRectMake(self.width - 50, 0, 40, self.height);
+    self.slider.frame = CGRectMake(self.btnPlayPause.edgeX + 10, 0, self.btnFullScreen.frame.origin.x - self.btnPlayPause.edgeX - 20, self.height);
 }
 
 #pragma mark -
@@ -62,6 +64,10 @@
 
 - (void)clickBtnFullScreen:(UIButton*)sender {
     [self.delegate clickFullScreenForVideoPanelView:self];
+}
+
+- (void)sliderValueChanged:(UISlider*)slider {
+    [self.delegate moveSliderForVideoPanelView:self];
 }
 
 #pragma mark -
@@ -94,9 +100,23 @@
     return _btnFullScreen;
 }
 
+- (UISlider*)slider {
+    if (!_slider) {
+        _slider = [[UISlider alloc]initWithFrame:CGRectZero];
+        _slider.continuous = YES;
+        [_slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    }
+    return _slider;
+}
+
 - (void)setIsPlay:(BOOL)isPlay {
     _isPlay = isPlay;
     self.btnPlayPause.selected = isPlay;
+}
+
+- (void)setSliderValue:(float)sliderValue {
+    _sliderValue = sliderValue;
+    self.slider.value = _sliderValue;
 }
 
 

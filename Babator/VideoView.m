@@ -16,6 +16,7 @@
 
 @property (nonatomic, strong) AKPlayerView* playerView;
 @property (nonatomic, strong) VideoPanelView* panelView;
+@property (nonatomic, strong) NSTimer* sliderTimer;
 
 @end
 
@@ -73,6 +74,7 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.sliderTimer invalidate];
 }
 
 - (void)layoutSubviews {
@@ -90,6 +92,11 @@
 - (void)loadVideoForURL:(NSString*)url {
     
 //    NSURL* urlTmp = [NSURL URLWithString:@"http://n23.filecdn.to/ff/NDcxMjk4MGZmNmRmNDBiMGY2ZjE2OTJiM2YyYmU5ZTl8ZnN0b3wxMzQ4MjY0NTc0fDEwMDAwfDJ8MHw1fDIzfGUzY2FjMTY3NjY5OWJhZjI0ZjNlNmE4ZDQ0NTMzYWQxfDB8MjQ6aC40MjpzfDB8MjAxODU5NjYwNnwxNDMzMzE4MjE4LjUzMzk,/play_698j93w00plnrodv1itd0heuu.0.4278037390.2185543202.1433148971.mp4"];
+    
+    self.panelView.slider.value = 0.0;
+    self.panelView.slider.minimumValue = 0.0;
+    [self.sliderTimer invalidate];
+    self.sliderTimer = nil;
     
     self.playerView.hidden = YES;
     AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:url] options:nil];
@@ -121,6 +128,23 @@
     } completion:^(BOOL finished){
         
     }];
+}
+
+- (void)updateSlider {
+    
+    //self.panelView.slider.maximumValue = [self durationInSeconds];
+    self.panelView.slider.value = [self currentTimeInSeconds];
+}
+
+- (Float64)durationInSeconds {
+    Float64 dur = CMTimeGetSeconds(self.player.currentItem.duration);
+    return dur;
+}
+
+
+- (Float64)currentTimeInSeconds {
+    Float64 dur = CMTimeGetSeconds([self.player currentTime]);
+    return dur;
 }
 
 #pragma mark -
@@ -190,6 +214,11 @@
     [self.delegate fullScreenForVideoView:self];
 }
 
+- (void)moveSliderForVideoPanelView:(VideoPanelView*)videoPanelView {
+    CMTime newTime = CMTimeMakeWithSeconds(videoPanelView.slider.value, 1);
+    [self.player seekToTime:newTime];
+}
+
 #pragma mark -
 #pragma mark Notifications
 - (void)playToEndTimeNotification:(NSNotification*)notification {
@@ -215,6 +244,10 @@
 - (void)newAccessLogEntryNotification:(NSNotification*)notification {
     NSLog(@"AVPlayerItemNewAccessLogEntryNotification");
     //[self.playerLayer.player play];
+    if (!self.sliderTimer) {
+        self.sliderTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateSlider) userInfo:nil repeats:YES];
+        self.panelView.slider.maximumValue = [self durationInSeconds];
+    }
 }
 
 - (void)newErrorLogEntryNotification:(NSNotification*)notification {

@@ -14,6 +14,8 @@
 
 @property (nonatomic, weak) id<VideoPanelViewDelegate> delegate;
 @property (nonatomic, assign) BOOL isPlay;
+@property (nonatomic, assign) float sliderValue;
+@property (nonatomic, strong) UISlider* slider;
 
 @end
 
@@ -23,5 +25,6 @@
 - (void)clickPauseForVideoPanelView:(VideoPanelView*)videoPanelView;
 - (void)clickBackForVideoPanelView:(VideoPanelView*)videoPanelView;
 - (void)clickFullScreenForVideoPanelView:(VideoPanelView*)videoPanelView;
+- (void)moveSliderForVideoPanelView:(VideoPanelView*)videoPanelView;
 
 @end
