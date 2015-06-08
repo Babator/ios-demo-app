@@ -25,12 +25,12 @@
 
 - (void)setApiKey:(NSString *)apiKey {
     _apiKey = apiKey;
-    [self setDefaultHeader:@"apiKey" value:apiKey];
+    //[self setDefaultHeader:@"apiKey" value:apiKey];
 }
 
 - (void)setUserID:(NSString *)userID {
     _userID = userID;
-    [self setDefaultHeader:@"userId" value:userID];
+    //[self setDefaultHeader:@"userId" value:userID];
 }
 
 - (void)postPath:(NSString *)path

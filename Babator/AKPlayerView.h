@@ -13,5 +13,6 @@
 @interface AKPlayerView : UIView
 
 @property (nonatomic, strong) AVPlayer* player;
+@property (nonatomic, readonly) BOOL isReadyForDisplay;
 
 @end

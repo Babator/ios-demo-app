@@ -8,6 +8,12 @@
 
 #import "DataContainer.h"
 
+@interface DataContainer ()
+
+@property (nonatomic, strong) NSMutableArray* historyVideos;
+
+@end
+
 @implementation DataContainer
 
 + (DataContainer*)sharedInstance
@@ -26,11 +32,35 @@
 {
     self = [super init];
     if (self) {
+        self.historyVideos = [NSMutableArray array];
         self.configDataProvider = [[ConfigDataProvider alloc] init];
         self.serverAPI = [[ServerAPI alloc] init];
         [self.serverAPI setWebserviceURL:[ConfigDataProvider serverURL]];
     }
     return self;
+}
+
+- (void)pushToHistoryVideoItem:(VideoItem*)videoItem {
+    
+    if (videoItem) {
+        [self.historyVideos addObject:videoItem];
+    }
+}
+
+- (VideoItem*)popVideoItemFromHistory {
+    
+    VideoItem* lastItem = [self.historyVideos lastObject];
+    if (lastItem) {
+        [self.historyVideos removeLastObject];
+    }
+    
+    return lastItem;
+}
+
+- (VideoItem*)peekVideoItemFromHistory {
+    
+    VideoItem* lastItem = [self.historyVideos lastObject];
+    return lastItem;
 }
 
 @end

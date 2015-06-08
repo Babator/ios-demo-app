@@ -35,8 +35,8 @@
 
 + (NSString *)serverURL
 {
-    //return @"http://api.babator.com";
-    return @"http://private-anon-ff38900b4-babatorapi.apiary-mock.com";
+    return @"http://api.babator.com";
+    //return @"http://private-anon-ff38900b4-babatorapi.apiary-mock.com";
     //return [ConfigDataProvider getServerUrl];
 }
 

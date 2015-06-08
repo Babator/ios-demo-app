@@ -42,14 +42,24 @@
     [super viewWillAppear:animated];
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark -
 #pragma mark Methods
 - (void)setup {
     [super setup];
     
-    [DataContainer sharedInstance].configDataProvider.apiKey = @"bec4606-ce32-4ba2-8e58-f6183cd2fdf9";
+    [DataContainer sharedInstance].configDataProvider.apiKey = @"cbec4606-ce32-4ba2-8e58-f6183cd2fdf9";
+    //[DataContainer sharedInstance].configDataProvider.apiKey = [ConfigDataProvider deviceId];
     
     self.urlTest = [NSURL URLWithString:@"http://n23.filecdn.to/ff/NDcxMjk4MGZmNmRmNDBiMGY2ZjE2OTJiM2YyYmU5ZTl8ZnN0b3wxMzQ4MjY0NTc0fDEwMDAwfDJ8MHw1fDIzfGUzY2FjMTY3NjY5OWJhZjI0ZjNlNmE4ZDQ0NTMzYWQxfDB8MjQ6aC40MjpzfDB8MjAxODU5NjYwNnwxNDMzMzE4MjE4LjUzMzk,/play_698j93w00plnrodv1itd0heuu.0.4278037390.2185543202.1433148971.mp4"];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(deviceOrientationDidChangeNotification:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
 }
 
 - (void)addAllViews {
@@ -87,15 +97,20 @@
     [Utils showHUD];
     [self loadUserIdSuccess:^(NSString *userID) {
         
-        [DataContainer sharedInstance].configDataProvider.userID = userID;
-        ServerAPI* serverAPI = [DataContainer sharedInstance].serverAPI;
-        [serverAPI firstVideoSuccess:^(VideoModule *request) {
-                               self.videoItem = request.videoItem;
-                               [Utils hideHUD];
-                           } failure:^(Error *error) {
-                               [Utils connectionError:error];
-                               [Utils hideHUD];
-                           }];
+                                if (userID) {
+                                    [DataContainer sharedInstance].configDataProvider.userID = userID;
+                                    ServerAPI* serverAPI = [DataContainer sharedInstance].serverAPI;
+                                    [serverAPI firstVideoSuccess:^(VideoModule *request) {
+                                        self.videoItem = request.videoItem;
+                                        [Utils hideHUD];
+                                    } failure:^(Error *error) {
+                                        [Utils connectionError:error];
+                                        [Utils hideHUD];
+                                    }];
+                                }
+                                else {
+                                    [Utils hideHUD];
+                                }
         
                     }
                     failure:^{
@@ -115,6 +130,7 @@
                                if ([request.errors count] > 0) {
                                    strError = request.errors[0];
                                }
+                               successBlock(nil);
                                
                                [AlertViewUtil showAlert:strError okBlock:^{
                                    
@@ -152,6 +168,7 @@
 }
 
 - (void)setVideoItem:(VideoItem *)videoItem {
+    
     _videoItem = videoItem;
     
     [self.videoView setUrl:videoItem.imageUrl duration:videoItem.durationSec];
@@ -162,6 +179,7 @@
         ServerAPI* serverAPI = [DataContainer sharedInstance].serverAPI;
         [serverAPI videosForVideoID:videoItem.videoID
                             success:^(VideosModule *request) {
+                                self.videoItem.videos = request.videos;
                                 self.listVideosView.videos = request.videos;
                             } failure:^(Error *error) {
                                 [Utils connectionError:error];
@@ -172,21 +190,12 @@
     }
 }
 
-#pragma mark -
-#pragma mark ListVideosView Delegate
-- (void)listVideosView:(ListVideosView*)listVideosView selectItem:(VideoItem*)item {
-    self.videoItem = item;
-}
-
-
-#pragma mark -
-#pragma mark VideoView Delegate
-- (void)fullScreenForVideoView:(VideoView*)videoView {
-    self.isFullScreen = !self.isFullScreen;
+- (void)setIsFullScreen:(BOOL)isFullScreen {
+    _isFullScreen = isFullScreen;
     
     self.view.transform = CGAffineTransformIdentity;
     UIScreen* screen = [UIScreen mainScreen];
-    if (self.isFullScreen) {
+    if (_isFullScreen) {
         self.view.transform = CGAffineTransformMakeRotation((M_PI * (90) / 180.0));
         self.view.bounds = CGRectMake(0.0, 0.0, screen.bounds.size.height, screen.bounds.size.width);
         [[UIApplication sharedApplication] setStatusBarHidden:YES
@@ -203,9 +212,43 @@
 }
 
 #pragma mark -
+#pragma mark ListVideosView Delegate
+- (void)listVideosView:(ListVideosView*)listVideosView selectItem:(VideoItem*)item {
+    [[DataContainer sharedInstance] pushToHistoryVideoItem:self.videoItem];
+    self.videoItem = item;
+}
+
+
+#pragma mark -
+#pragma mark VideoView Delegate
+- (void)fullScreenForVideoView:(VideoView*)videoView {
+    self.isFullScreen = !self.isFullScreen;
+}
+
+- (void)backForVideoView:(VideoView*)videoView {
+    
+    VideoItem* lastItem = [[DataContainer sharedInstance] popVideoItemFromHistory];
+    if (lastItem) {
+        self.videoItem = lastItem;
+        self.videoView.isPlay = NO;
+        self.videoView.isHidePlayer = YES;
+    }
+}
+
+#pragma mark -
 #pragma mark Notifications
-
-
+- (void)deviceOrientationDidChangeNotification:(NSNotification*)notification {
+    
+    if (([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeLeft) ||
+        ([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeRight)) {
+        
+        self.isFullScreen = YES;
+    }
+    else if (([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait) ||
+             ([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortraitUpsideDown)) {
+        self.isFullScreen = NO;
+    }
+}
 
 @end
 

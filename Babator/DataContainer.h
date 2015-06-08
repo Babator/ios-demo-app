@@ -17,4 +17,8 @@
 @property (nonatomic, strong) ConfigDataProvider* configDataProvider;
 @property (nonatomic, strong) ServerAPI * serverAPI;
 
+- (void)pushToHistoryVideoItem:(VideoItem*)videoItem;
+- (VideoItem*)popVideoItemFromHistory;
+- (VideoItem*)peekVideoItemFromHistory;
+
 @end

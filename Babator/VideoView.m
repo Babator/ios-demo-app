@@ -17,6 +17,7 @@
 @property (nonatomic, strong) AKPlayerView* playerView;
 @property (nonatomic, strong) VideoPanelView* panelView;
 @property (nonatomic, strong) NSTimer* sliderTimer;
+@property (nonatomic, copy) NSString* urlVideo;
 
 @end
 
@@ -68,6 +69,11 @@
                                                  name:AVPlayerItemNewErrorLogEntryNotification
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationDidEnterBackgroundHandler:)
+                                                 name:APP_DID_ENTER_BACKGROUND
+                                               object:nil];
+    
     UITapGestureRecognizer* tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tabToContent:)];
     [self addGestureRecognizer:tapGestureRecognizer];
 }
@@ -89,7 +95,9 @@
     [super setUrl:url duration:duration];
 }
 
-- (void)loadVideoForURL:(NSString*)url {
+- (void)loadVideoForURL:(NSString*)url { // AVAssetResourceLoaderDelegate
+    
+    self.urlVideo = url;
     
 //    NSURL* urlTmp = [NSURL URLWithString:@"http://n23.filecdn.to/ff/NDcxMjk4MGZmNmRmNDBiMGY2ZjE2OTJiM2YyYmU5ZTl8ZnN0b3wxMzQ4MjY0NTc0fDEwMDAwfDJ8MHw1fDIzfGUzY2FjMTY3NjY5OWJhZjI0ZjNlNmE4ZDQ0NTMzYWQxfDB8MjQ6aC40MjpzfDB8MjAxODU5NjYwNnwxNDMzMzE4MjE4LjUzMzk,/play_698j93w00plnrodv1itd0heuu.0.4278037390.2185543202.1433148971.mp4"];
     
@@ -107,6 +115,11 @@
 }
 
 - (void)videoPlay:(BOOL)isPlay {
+    
+    if (!self.urlVideo || [self.urlVideo length] == 0) {
+        return;
+    }
+    
     if (self.playerView.hidden) {
         self.playerView.hidden = NO;
     }
@@ -115,6 +128,9 @@
     
     if (isPlay) {
         [self.playerView.player play];
+        if (!self.sliderTimer) {
+            self.sliderTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateSlider) userInfo:nil repeats:YES];
+        }
     }
     else {
         [self.playerView.player pause];
@@ -132,12 +148,16 @@
 
 - (void)updateSlider {
     
-    //self.panelView.slider.maximumValue = [self durationInSeconds];
+    self.panelView.slider.maximumValue = [self durationInSeconds];
     self.panelView.slider.value = [self currentTimeInSeconds];
 }
 
 - (Float64)durationInSeconds {
-    Float64 dur = CMTimeGetSeconds(self.player.currentItem.duration);
+    Float64 dur = 0.0;
+    CMTime time = self.player.currentItem.duration;
+    if(time.flags == kCMTimeFlags_Valid) {
+        dur = CMTimeGetSeconds(time);
+    }
     return dur;
 }
 
@@ -189,17 +209,15 @@
     [self videoPlay:isPlay];
 }
 
+- (void)setIsHidePlayer:(BOOL)isHidePlayer {
+    _isHidePlayer = isHidePlayer;
+    self.playerView.hidden = isHidePlayer;
+}
+
 #pragma mark -
 #pragma mark VideoPanelView Delegate
 - (void)clickPlayForVideoPanelView:(VideoPanelView*)videoPanelView {
     [self videoPlay:YES];
-    
-//    Float64 dur = CMTimeGetSeconds(self.playerView.player.currentItem.duration);
-//
-//    dur -= 20;
-//
-//    CMTime newTime = CMTimeMakeWithSeconds(dur, 1);
-//    [self.playerView.player seekToTime:newTime];
 }
 
 - (void)clickPauseForVideoPanelView:(VideoPanelView*)videoPanelView {
@@ -207,7 +225,7 @@
 }
 
 - (void)clickBackForVideoPanelView:(VideoPanelView*)videoPanelView {
-    NSLog(@"clickBackForVideoPanelView");
+    [self.delegate backForVideoView:self];
 }
 
 - (void)clickFullScreenForVideoPanelView:(VideoPanelView*)videoPanelView {
@@ -223,7 +241,15 @@
 #pragma mark Notifications
 - (void)playToEndTimeNotification:(NSNotification*)notification {
     //NSLog(@"AVPlayerItemDidPlayToEndTimeNotification");
+    [self videoPlay:NO];
     self.playerView.hidden = YES;
+    CMTime newTime = CMTimeMakeWithSeconds(0, 1);
+    [self.player seekToTime:newTime];
+
+    [self.sliderTimer invalidate];
+    self.sliderTimer = nil;
+    self.panelView.slider.value = 0.0;
+    self.panelView.slider.minimumValue = 0.0;
 }
 
 - (void)failedToPlayToEndTimeNotification:(NSNotification*)notification {
@@ -237,21 +263,24 @@
 - (void)playbackStalledNotification:(NSNotification*)notification {
     NSLog(@"AVPlayerItemPlaybackStalledNotification");
     //[self.playerLayer.player play];
-    //self.btnPlay.selected = NO;
-    [self videoPlay:NO];
+    [self videoPlay:YES];
 }
 
 - (void)newAccessLogEntryNotification:(NSNotification*)notification {
     NSLog(@"AVPlayerItemNewAccessLogEntryNotification");
     //[self.playerLayer.player play];
-    if (!self.sliderTimer) {
-        self.sliderTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateSlider) userInfo:nil repeats:YES];
-        self.panelView.slider.maximumValue = [self durationInSeconds];
-    }
+//    if (!self.sliderTimer) {
+//        self.sliderTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateSlider) userInfo:nil repeats:YES];
+//        self.panelView.slider.maximumValue = [self durationInSeconds];
+//    }
 }
 
 - (void)newErrorLogEntryNotification:(NSNotification*)notification {
     NSLog(@"AVPlayerItemNewErrorLogEntryNotification");
+}
+
+- (void) applicationDidEnterBackgroundHandler:(NSNotification*) notification {
+    self.panelView.isPlay = NO;
 }
 
 

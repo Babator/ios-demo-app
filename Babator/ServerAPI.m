@@ -137,8 +137,10 @@
 - (void)firstVideoSuccess:(void (^)(VideoModule *request))successBlock
                   failure:(FaultHandler)failureBlock {
     
+    id params = [NSDictionary dictionaryWithObjectsAndKeys: self.httpClientInstance.apiKey, @"apiKey", self.httpClientInstance.userID, @"userId", nil];
+    
     [self.httpClientInstance postPath:[NSString stringWithFormat:@"/babator-api/%ld", (long)0]
-                           parameters:nil
+                           parameters:params
                               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                   //NSLog(@"%@", responseObject);
                                   VideoModule *response = [JsonConvertor firstVideoModuleModuleFromDictionary:(NSDictionary *)responseObject];
@@ -157,8 +159,10 @@
                  success:(void (^)(VideosModule *request))successBlock
                  failure:(FaultHandler)failureBlock {
     
+    id params = [NSDictionary dictionaryWithObjectsAndKeys: self.httpClientInstance.apiKey, @"apiKey", self.httpClientInstance.userID, @"userId", nil];
+    
     [self.httpClientInstance postPath:[NSString stringWithFormat:@"/babator-api/%ld", (long)videoID]
-                           parameters:nil
+                           parameters:params
                               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                   //NSLog(@"%@", responseObject);
                                   VideosModule *response = [JsonConvertor videosModuleModuleFromDictionary:(NSDictionary *)responseObject];

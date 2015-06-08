@@ -19,6 +19,10 @@
     return [(AVPlayerLayer*)[self layer] player];
 }
 
+- (BOOL)isReadyForDisplay {
+    return ((AVPlayerLayer*)[self layer]).readyForDisplay;
+}
+
 - (void)setPlayer:(AVPlayer *)player {
     [(AVPlayerLayer*)[self layer] setPlayer:player];
 }

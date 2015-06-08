@@ -16,6 +16,7 @@
 //@property (nonatomic, readonly) AVPlayer* player;
 @property (nonatomic, weak) id<VideoViewDelegate> delegate;
 @property (nonatomic, assign) BOOL isPlay;
+@property (nonatomic, assign) BOOL isHidePlayer;
 
 - (void)loadVideoForURL:(NSString*)url;
 
@@ -24,5 +25,6 @@
 @protocol VideoViewDelegate <NSObject>
 
 - (void)fullScreenForVideoView:(VideoView*)videoView;
+- (void)backForVideoView:(VideoView*)videoView;
 
 @end
