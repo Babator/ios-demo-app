@@ -263,6 +263,12 @@
 - (void)playbackStalledNotification:(NSNotification*)notification {
     NSLog(@"AVPlayerItemPlaybackStalledNotification");
     //[self.playerLayer.player play];
+    //[self videoPlay:YES];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(videoPlay_helper) object:nil];
+    [self performSelector:@selector(videoPlay_helper) withObject:nil afterDelay:2.0];
+}
+
+- (void)videoPlay_helper {
     [self videoPlay:YES];
 }
 

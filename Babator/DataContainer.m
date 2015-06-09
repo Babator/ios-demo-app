@@ -44,6 +44,9 @@
     
     if (videoItem) {
         [self.historyVideos addObject:videoItem];
+        if ([self.historyVideos count] > 5) {
+            [self.historyVideos removeObjectAtIndex:0];
+        }
     }
 }
 

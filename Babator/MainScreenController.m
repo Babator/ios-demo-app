@@ -23,6 +23,7 @@
 @property (nonatomic, strong) VideoView* videoView;
 @property (nonatomic, strong) ListVideosView* listVideosView;
 @property (nonatomic, assign) BOOL isFullScreen;
+@property (nonatomic, strong)UILabel* lblTitle;
 
 @end
 
@@ -66,6 +67,7 @@
     [super addAllViews];
     
     [self.view addSubview:self.listVideosView];
+    [self.view addSubview:self.lblTitle];
     [self.view addSubview:self.videoView];
     
     [self reloadData];
@@ -86,7 +88,9 @@
     }
     else {
         self.videoView.frame = CGRectMake(0, self.heightHeader, self.view.width, 200);
-        self.listVideosView.frame = CGRectMake(0, self.videoView.edgeY, self.view.width, self.view.height - self.videoView.edgeY);
+        [self.lblTitle sizeToFit];
+        self.lblTitle.frame = CGRectMake(10, self.videoView.edgeY + 5, self.view.width - 20, self.lblTitle.height);
+        self.listVideosView.frame = CGRectMake(0, self.lblTitle.edgeY + 5, self.view.width, self.view.height - self.lblTitle.edgeY - 5);
     }
 }
 
@@ -167,10 +171,23 @@
     return _listVideosView;
 }
 
+- (UILabel *)lblTitle
+{
+    if (!_lblTitle) {
+        _lblTitle = [[UILabel alloc]initWithFrame:CGRectZero];
+        _lblTitle.backgroundColor = [UIColor clearColor];
+        _lblTitle.textColor = [Utils colorLightText];
+        _lblTitle.font = [UIFont systemFontOfSize:18];
+        _lblTitle.numberOfLines = 3;
+    }
+    return _lblTitle;
+}
+
 - (void)setVideoItem:(VideoItem *)videoItem {
     
     _videoItem = videoItem;
     
+    self.lblTitle.text = videoItem.title;
     [self.videoView setUrl:videoItem.imageUrl duration:videoItem.durationSec];
     [self.videoView loadVideoForURL:videoItem.url];
     
@@ -188,6 +205,8 @@
     else {
         self.listVideosView.videos = videoItem.videos;
     }
+    
+    [self resizeViews];
 }
 
 - (void)setIsFullScreen:(BOOL)isFullScreen {
@@ -239,8 +258,7 @@
 #pragma mark Notifications
 - (void)deviceOrientationDidChangeNotification:(NSNotification*)notification {
     
-    if (([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeLeft) ||
-        ([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeRight)) {
+    if (([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeLeft)) {
         
         self.isFullScreen = YES;
     }

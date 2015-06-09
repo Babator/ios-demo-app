@@ -60,6 +60,7 @@
     }
     
     [self.tableView reloadData];
+    self.tableView.contentInset = UIEdgeInsetsZero;
 }
 
 - (UITableView *)tableView
