@@ -23,7 +23,10 @@
 @property (nonatomic, strong) VideoView* videoView;
 @property (nonatomic, strong) ListVideosView* listVideosView;
 @property (nonatomic, assign) BOOL isFullScreen;
-@property (nonatomic, strong)UILabel* lblTitle;
+@property (nonatomic, strong) UILabel* lblTitle;
+@property (nonatomic, strong) UIImageView* imgLogo;
+@property (nonatomic, strong) UIButton* btnMenu;
+@property (nonatomic, strong) UIImageView* lineView;
 
 @end
 
@@ -66,6 +69,10 @@
 - (void)addAllViews {
     [super addAllViews];
     
+    [self.view addSubview:self.lineView];
+    [self.view addSubview:self.imgLogo];
+    [self.view addSubview:self.btnMenu];
+    
     [self.view addSubview:self.listVideosView];
     [self.view addSubview:self.lblTitle];
     [self.view addSubview:self.videoView];
@@ -87,7 +94,10 @@
         self.videoView.frame = self.view.bounds;
     }
     else {
-        self.videoView.frame = CGRectMake(0, self.heightHeader, self.view.width, 200);
+        self.lineView.frame = CGRectMake(0, self.heightHeader, self.view.width, self.lineView.height);
+        self.imgLogo.frame = CGRectMake((self.view.width - self.imgLogo.width) / 2, self.lineView.edgeY + 8, self.imgLogo.width, self.imgLogo.height);
+        self.btnMenu.frame = CGRectMake(self.view.width - 45, self.lineView.edgeY, 45, 45);
+        self.videoView.frame = CGRectMake(0, self.imgLogo.edgeY, self.view.width, self.view.width / 1.777);
         [self.lblTitle sizeToFit];
         self.lblTitle.frame = CGRectMake(10, self.videoView.edgeY + 5, self.view.width - 20, self.lblTitle.height);
         self.listVideosView.frame = CGRectMake(0, self.lblTitle.edgeY + 5, self.view.width, self.view.height - self.lblTitle.edgeY - 5);
@@ -152,6 +162,9 @@
 
 #pragma mark -
 #pragma mark Actions
+- (void)clickBtnMenu:(UIButton*)sender {
+    NSLog(@"clickBtnMenu");
+}
 
 #pragma mark -
 #pragma mark Property
@@ -183,12 +196,37 @@
     return _lblTitle;
 }
 
+- (UIImageView *)imgLogo {
+    if (!_imgLogo) {
+        _imgLogo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"big_logo"]];
+        //_imgLogo.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    return _imgLogo;
+}
+
+- (UIImageView *)lineView {
+    if (!_lineView) {
+        _lineView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"blue_line"]];
+        //_imgLogo.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    return _lineView;
+}
+
+- (UIButton *)btnMenu {
+    if (!_btnMenu) {
+        _btnMenu = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_btnMenu setImage:[UIImage imageNamed:@"menu_icon"] forState:UIControlStateNormal];
+        [_btnMenu addTarget:self action:@selector(clickBtnMenu:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _btnMenu;
+}
+
 - (void)setVideoItem:(VideoItem *)videoItem {
     
     _videoItem = videoItem;
     
     self.lblTitle.text = videoItem.title;
-    [self.videoView setUrl:videoItem.imageUrl duration:videoItem.durationSec];
+    [self.videoView setUrl:videoItem.imageUrl title:videoItem.title duration:videoItem.durationSec];
     [self.videoView loadVideoForURL:videoItem.url];
     
     if (!videoItem.videos) {
@@ -217,14 +255,14 @@
     if (_isFullScreen) {
         self.view.transform = CGAffineTransformMakeRotation((M_PI * (90) / 180.0));
         self.view.bounds = CGRectMake(0.0, 0.0, screen.bounds.size.height, screen.bounds.size.width);
-        [[UIApplication sharedApplication] setStatusBarHidden:YES
-                                                withAnimation:UIStatusBarAnimationFade];
+//        [[UIApplication sharedApplication] setStatusBarHidden:YES
+//                                                withAnimation:UIStatusBarAnimationFade];
     }
     else {
         self.view.transform = CGAffineTransformMakeRotation((M_PI * (0) / 180.0));
         self.view.bounds = CGRectMake(0.0, 0.0, screen.bounds.size.width, screen.bounds.size.height);
-        [[UIApplication sharedApplication] setStatusBarHidden:NO
-                                                withAnimation:UIStatusBarAnimationFade];
+//        [[UIApplication sharedApplication] setStatusBarHidden:NO
+//                                                withAnimation:UIStatusBarAnimationFade];
     }
     
     [self resizeViews];
@@ -251,6 +289,12 @@
         self.videoItem = lastItem;
         self.videoView.isPlay = NO;
         self.videoView.isHidePlayer = YES;
+    }
+}
+
+- (void)playToEndTimeForVideoView:(VideoView*)videoView {
+    if (self.isFullScreen) {
+        self.isFullScreen = NO;
     }
 }
 

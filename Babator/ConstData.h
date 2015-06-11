@@ -10,7 +10,7 @@
 
 typedef void (^VoidHandler)();
 
-//#define DELAY_SPLASH_SCREEN 2.0
+#define DELAY_PANEL_HIDDEN 2.0
 
 //-------------------------------------------------------------------------------
 //  Main screen

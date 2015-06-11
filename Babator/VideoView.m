@@ -76,6 +76,8 @@
     
     UITapGestureRecognizer* tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tabToContent:)];
     [self addGestureRecognizer:tapGestureRecognizer];
+    
+    self.infoView.hidden = YES;
 }
 
 - (void)dealloc {
@@ -87,12 +89,13 @@
     [super layoutSubviews];
     
     self.playerView.frame = self.bounds;
-    self.panelView.frame = CGRectMake(0, self.height - 40, self.width, 40);
+    self.panelView.frame = CGRectMake(0, self.height - 36, self.width, 36);
 }
 
-- (void)setUrl:(NSString*)url duration:(NSInteger)duration
+- (void)setUrl:(NSString*)url title:(NSString*)title duration:(NSInteger)duration
 {
-    [super setUrl:url duration:duration];
+    [super setUrl:url title:title duration:duration];
+    [self.panelView setCurrentTime:0.0 duration:duration];
 }
 
 - (void)loadVideoForURL:(NSString*)url { // AVAssetResourceLoaderDelegate
@@ -102,6 +105,7 @@
 //    NSURL* urlTmp = [NSURL URLWithString:@"http://n23.filecdn.to/ff/NDcxMjk4MGZmNmRmNDBiMGY2ZjE2OTJiM2YyYmU5ZTl8ZnN0b3wxMzQ4MjY0NTc0fDEwMDAwfDJ8MHw1fDIzfGUzY2FjMTY3NjY5OWJhZjI0ZjNlNmE4ZDQ0NTMzYWQxfDB8MjQ6aC40MjpzfDB8MjAxODU5NjYwNnwxNDMzMzE4MjE4LjUzMzk,/play_698j93w00plnrodv1itd0heuu.0.4278037390.2185543202.1433148971.mp4"];
     
     self.panelView.slider.value = 0.0;
+    [self.panelView setCurrentTime:0.0 duration:self.duration];
     self.panelView.slider.minimumValue = 0.0;
     [self.sliderTimer invalidate];
     self.sliderTimer = nil;
@@ -148,8 +152,9 @@
 
 - (void)updateSlider {
     
-    self.panelView.slider.maximumValue = [self durationInSeconds];
-    self.panelView.slider.value = [self currentTimeInSeconds];
+    //self.panelView.slider.maximumValue = [self durationInSeconds];
+    //self.panelView.slider.value = [self currentTimeInSeconds];
+    [self.panelView setCurrentTime:[self currentTimeInSeconds] duration:[self durationInSeconds]];
 }
 
 - (Float64)durationInSeconds {
@@ -249,7 +254,10 @@
     [self.sliderTimer invalidate];
     self.sliderTimer = nil;
     self.panelView.slider.value = 0.0;
+    [self.panelView setCurrentTime:0.0 duration:self.duration];
     self.panelView.slider.minimumValue = 0.0;
+    
+    [self.delegate playToEndTimeForVideoView:self];
 }
 
 - (void)failedToPlayToEndTimeNotification:(NSNotification*)notification {

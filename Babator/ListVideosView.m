@@ -10,7 +10,7 @@
 #import "ListVideosCell.h"
 #import "VideoItem.h"
 
-#define HeightCell 85
+#define HeightCell 150
 
 @interface ListVideosView ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -72,7 +72,8 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.backgroundColor = [UIColor clearColor];
-        [_tableView setSeparatorInset:UIEdgeInsetsZero];
+        //[_tableView setSeparatorInset:UIEdgeInsetsZero];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _tableView;
 }

@@ -29,7 +29,7 @@
     if (self) {
         
         [self addSubview:self.thumbnailView];
-        [self addSubview:self.lblTitle];
+        //[self addSubview:self.lblTitle];
     }
     return self;
 }
@@ -47,15 +47,16 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    self.thumbnailView.frame = CGRectMake(MarginLeft, MarginTopBottom, 100, self.height - MarginTopBottom * 2);
-    self.lblTitle.frame = CGRectMake(self.thumbnailView.edgeX + 10, MarginTopBottom, self.width - self.thumbnailView.edgeX - 10 - MarginRight, self.thumbnailView.height);
+    self.thumbnailView.frame = CGRectMake(0, MarginTopBottom, self.width, self.height - MarginTopBottom * 2);
+    //self.thumbnailView.frame = CGRectMake(MarginLeft, MarginTopBottom, 100, self.height - MarginTopBottom * 2);
+    //self.lblTitle.frame = CGRectMake(self.thumbnailView.edgeX + 10, MarginTopBottom, self.width - self.thumbnailView.edgeX - 10 - MarginRight, self.thumbnailView.height);
 }
 
 #pragma mark -
 #pragma mark Methods
 - (void)setData:(VideoItem*)item
 {
-    [self.thumbnailView setUrl:item.imageUrl duration:item.durationSec];
+    [self.thumbnailView setUrl:item.imageUrl title:item.title duration:item.durationSec];
     self.lblTitle.text = item.title;
 }
 
@@ -64,6 +65,7 @@
 - (ThumbnailView *)thumbnailView {
     if (!_thumbnailView) {
         _thumbnailView = [[ThumbnailView alloc]initWithFrame:CGRectZero];
+        //_thumbnailView.thumbnailView.contentMode = UIViewContentModeScaleAspectFill;
     }
     return _thumbnailView;
 }

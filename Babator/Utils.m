@@ -70,6 +70,24 @@
 	return [formatter stringFromDate:date];
 }
 
++ (NSString *)stringTimeFormatted:(NSInteger)totalSeconds
+{
+    
+    NSInteger seconds = totalSeconds % 60;
+    NSInteger minutes = (totalSeconds / 60) % 60;
+    NSInteger hours = totalSeconds / 3600;
+    
+    NSString* strResult = @"";
+    if (hours == 0) {
+        strResult = [NSString stringWithFormat:@"%02ld:%02ld", (long)minutes, (long)seconds];
+    }
+    else {
+        strResult = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",(long)hours, (long)minutes, (long)seconds];
+    }
+    
+    return strResult;
+}
+
 #pragma mark - Style
 
 // Style
@@ -100,7 +118,7 @@
 
 + (UIColor*)colorBlue
 {
-    return UIColorMakeRGB(85, 169, 206);
+    return UIColorMakeRGB(0, 114, 143);
 }
 
 + (UIColor*)colorYellow

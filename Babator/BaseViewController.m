@@ -35,7 +35,8 @@
 }
 
 - (void)setup {
-    self.view.backgroundColor = [Utils colorLightBorder];
+    //self.view.backgroundColor = [Utils colorLightBorder];
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)viewDidLoad {

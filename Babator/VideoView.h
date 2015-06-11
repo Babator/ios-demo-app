@@ -26,5 +26,6 @@
 
 - (void)fullScreenForVideoView:(VideoView*)videoView;
 - (void)backForVideoView:(VideoView*)videoView;
+- (void)playToEndTimeForVideoView:(VideoView*)videoView;
 
 @end

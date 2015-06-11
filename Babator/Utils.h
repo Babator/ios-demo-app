@@ -16,6 +16,7 @@
 + (NSDate*)dateFromString:(NSString*)strDate;
 + (NSString*)stringFromDate:(NSDate*)date;
 + (NSString*)stringFromDate:(NSDate *)date withFormatString:(NSString*)dateFormatterString;
++ (NSString *)stringTimeFormatted:(NSInteger)totalSeconds;
 
 // Style
 + (UIColor*)colorTitle;

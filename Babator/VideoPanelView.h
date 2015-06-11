@@ -17,6 +17,8 @@
 @property (nonatomic, assign) float sliderValue;
 @property (nonatomic, strong) UISlider* slider;
 
+- (void)setCurrentTime:(Float64)currentTime duration:(Float64)duration;
+
 @end
 
 @protocol VideoPanelViewDelegate <NSObject>

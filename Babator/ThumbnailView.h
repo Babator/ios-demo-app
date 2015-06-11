@@ -14,7 +14,9 @@
 @property (nonatomic, readonly) NSInteger duration;
 @property (nonatomic, strong) UIImageView* thumbnailView;
 @property (nonatomic, strong) UILabel* lblDuration;
+@property (nonatomic, strong) UILabel* lblTitle;
+@property (nonatomic, strong) UIView* infoView;
 
-- (void)setUrl:(NSString*)url duration:(NSInteger)duration;
+- (void)setUrl:(NSString*)url title:(NSString*)title duration:(NSInteger)duration;
 
 @end

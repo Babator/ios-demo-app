@@ -70,6 +70,7 @@
 		F6E0BC9D1B29831D009C7000 /* black_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6E0BC8D1B29831D009C7000 /* black_back@2x.png */; };
 		F6E0BC9E1B29831D009C7000 /* small_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = F6E0BC8E1B29831D009C7000 /* small_logo.png */; };
 		F6E0BC9F1B29831D009C7000 /* small_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6E0BC8F1B29831D009C7000 /* small_logo@2x.png */; };
+		F6E0BCA21B29CBC6009C7000 /* ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E0BCA11B29CBC6009C7000 /* ProgressView.m */; };
 		F6EE09491B1F22B7000BD502 /* AKPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F6EE09481B1F22B7000BD502 /* AKPlayerView.m */; };
 		F6EE094C1B1F3025000BD502 /* VideoModule.m in Sources */ = {isa = PBXBuildFile; fileRef = F6EE094B1B1F3025000BD502 /* VideoModule.m */; };
 		F6EE094F1B1F3A0A000BD502 /* VideoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F6EE094E1B1F3A0A000BD502 /* VideoItem.m */; };
@@ -190,6 +191,8 @@
 		F6E0BC8D1B29831D009C7000 /* black_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "black_back@2x.png"; sourceTree = "<group>"; };
 		F6E0BC8E1B29831D009C7000 /* small_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = small_logo.png; sourceTree = "<group>"; };
 		F6E0BC8F1B29831D009C7000 /* small_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "small_logo@2x.png"; sourceTree = "<group>"; };
+		F6E0BCA01B29CBC6009C7000 /* ProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressView.h; sourceTree = "<group>"; };
+		F6E0BCA11B29CBC6009C7000 /* ProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressView.m; sourceTree = "<group>"; };
 		F6EE09471B1F22B7000BD502 /* AKPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPlayerView.h; sourceTree = "<group>"; };
 		F6EE09481B1F22B7000BD502 /* AKPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPlayerView.m; sourceTree = "<group>"; };
 		F6EE094A1B1F3025000BD502 /* VideoModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoModule.h; sourceTree = "<group>"; };
@@ -452,6 +455,8 @@
 				F692AEE91B207A6500181475 /* VideoView.m */,
 				F692AEEC1B20846400181475 /* VideoPanelView.h */,
 				F692AEED1B20846400181475 /* VideoPanelView.m */,
+				F6E0BCA01B29CBC6009C7000 /* ProgressView.h */,
+				F6E0BCA11B29CBC6009C7000 /* ProgressView.m */,
 			);
 			name = "Thumbnail Video View";
 			sourceTree = "<group>";
@@ -619,6 +624,7 @@
 				F6EE094C1B1F3025000BD502 /* VideoModule.m in Sources */,
 				F6424D781B1DE8CD0035DE3C /* MBProgressHUD.m in Sources */,
 				F6EE09521B1F4970000BD502 /* ThumbnailView.m in Sources */,
+				F6E0BCA21B29CBC6009C7000 /* ProgressView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

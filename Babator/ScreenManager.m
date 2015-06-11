@@ -30,6 +30,8 @@ typedef void (^CompletBlock) ();
         self.navigationController = (UINavigationController*)self.window.rootViewController;
         self.navigationController.navigationBarHidden = YES;
         
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+        
         [self subscribeToEvents];
         [self showMainScreenAnimation:NO];
     }
