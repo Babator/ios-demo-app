@@ -230,7 +230,7 @@
     [self.videoView loadVideoForURL:videoItem.url];
     
     if (!videoItem.videos) {
-        self.videoView.isPlay = YES;
+        //self.videoView.isPlay = YES;
         ServerAPI* serverAPI = [DataContainer sharedInstance].serverAPI;
         [serverAPI videosForVideoID:videoItem.videoID
                             success:^(VideosModule *request) {
@@ -273,6 +273,7 @@
 - (void)listVideosView:(ListVideosView*)listVideosView selectItem:(VideoItem*)item {
     [[DataContainer sharedInstance] pushToHistoryVideoItem:self.videoItem];
     self.videoItem = item;
+    self.videoView.isPlay = YES;
 }
 
 

@@ -78,6 +78,8 @@
     [self addGestureRecognizer:tapGestureRecognizer];
     
     self.infoView.hidden = YES;
+    
+    [self showPanel:YES];
 }
 
 - (void)dealloc {
@@ -139,6 +141,8 @@
     else {
         [self.playerView.player pause];
     }
+    
+    [self hidePanelControl];
 }
 
 - (void)showPanel:(BOOL)show {
@@ -172,6 +176,17 @@
     return dur;
 }
 
+- (void) hidePanelControl {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hidePanelControl_helper) object:nil];
+    if (self.isPlay) {
+        [self performSelector:@selector(hidePanelControl_helper) withObject:nil afterDelay:DELAY_PANEL_HIDDEN];
+    }
+}
+
+- (void) hidePanelControl_helper {
+    [self showPanel:NO];
+}
+
 #pragma mark -
 #pragma mark Actions
 - (void)tabToContent:(UITapGestureRecognizer*)recognizer {
@@ -181,6 +196,8 @@
     else {
         [self showPanel:NO];
     }
+    
+    [self hidePanelControl];
 }
 
 #pragma mark -
@@ -222,31 +239,38 @@
 #pragma mark -
 #pragma mark VideoPanelView Delegate
 - (void)clickPlayForVideoPanelView:(VideoPanelView*)videoPanelView {
-    [self videoPlay:YES];
+    //[self videoPlay:YES];
+    self.isPlay = YES;
 }
 
 - (void)clickPauseForVideoPanelView:(VideoPanelView*)videoPanelView {
-    [self videoPlay:NO];
+    //[self videoPlay:NO];
+    self.isPlay = NO;
 }
 
 - (void)clickBackForVideoPanelView:(VideoPanelView*)videoPanelView {
     [self.delegate backForVideoView:self];
+    [self hidePanelControl];
 }
 
 - (void)clickFullScreenForVideoPanelView:(VideoPanelView*)videoPanelView {
     [self.delegate fullScreenForVideoView:self];
+    [self hidePanelControl];
 }
 
 - (void)moveSliderForVideoPanelView:(VideoPanelView*)videoPanelView {
     CMTime newTime = CMTimeMakeWithSeconds(videoPanelView.slider.value, 1);
     [self.player seekToTime:newTime];
+    [self hidePanelControl];
 }
 
 #pragma mark -
 #pragma mark Notifications
 - (void)playToEndTimeNotification:(NSNotification*)notification {
     //NSLog(@"AVPlayerItemDidPlayToEndTimeNotification");
-    [self videoPlay:NO];
+    //[self videoPlay:NO];
+    self.isPlay = NO;
+    [self showPanel:YES];
     self.playerView.hidden = YES;
     CMTime newTime = CMTimeMakeWithSeconds(0, 1);
     [self.player seekToTime:newTime];
@@ -277,7 +301,8 @@
 }
 
 - (void)videoPlay_helper {
-    [self videoPlay:YES];
+    //[self videoPlay:YES];
+    self.isPlay = YES;
 }
 
 - (void)newAccessLogEntryNotification:(NSNotification*)notification {
