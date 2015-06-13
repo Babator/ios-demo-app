@@ -280,6 +280,23 @@
     }
 }
 
++ (NSString*)urlHDVideoForUrl:(NSString*)url {
+    NSString* strUrlImage = url;
+    NSArray* arrTmp = [strUrlImage componentsSeparatedByString:@"."];
+    NSMutableString* strSendUrl = [NSMutableString string];
+    
+    for (int i = 0; i < [arrTmp count] - 1; i++) {
+        NSString* item = arrTmp[i];
+        [strSendUrl appendString:item];
+        if (i < [arrTmp count] - 2) {
+            [strSendUrl appendString:@"."];
+        }
+    }
+    
+    [strSendUrl appendFormat:@"%@.%@", @"_320_150", arrTmp.lastObject];
+    return strSendUrl;
+}
+
 
 @end
 

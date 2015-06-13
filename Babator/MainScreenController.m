@@ -226,7 +226,8 @@
     _videoItem = videoItem;
     
     self.lblTitle.text = videoItem.title;
-    [self.videoView setUrl:videoItem.imageUrl title:videoItem.title duration:videoItem.durationSec];
+    //[self.videoView setUrl:videoItem.imageUrl title:videoItem.title duration:videoItem.durationSec];
+    [self.videoView setUrl:[Utils urlHDVideoForUrl:videoItem.imageUrl] title:videoItem.title duration:videoItem.durationSec];
     [self.videoView loadVideoForURL:videoItem.url];
     
     if (!videoItem.videos) {

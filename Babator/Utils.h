@@ -50,6 +50,8 @@
 
 + (void)connectionError:(Error*)error;
 
++ (NSString*)urlHDVideoForUrl:(NSString*)url;
+
 @end
 
 UIColor* UIColorMakeRGB(CGFloat red, CGFloat green, CGFloat blue);

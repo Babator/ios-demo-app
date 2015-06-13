@@ -56,7 +56,7 @@
 #pragma mark Methods
 - (void)setData:(VideoItem*)item
 {
-    [self.thumbnailView setUrl:item.imageUrl title:item.title duration:item.durationSec];
+    [self.thumbnailView setUrl:[Utils urlHDVideoForUrl:item.imageUrl] title:item.title duration:item.durationSec];
     self.lblTitle.text = item.title;
 }
 

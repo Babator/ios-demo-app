@@ -59,6 +59,10 @@
         self.items = @[];
     }
     
+    [self.tableView removeFromSuperview];
+    self.tableView = nil;
+    [self addSubview:self.tableView];
+    
     [self.tableView reloadData];
     self.tableView.contentInset = UIEdgeInsetsZero;
 }
@@ -91,16 +95,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *CellIdentifier = @"Cell";
+    //NSString *CellIdentifier = @"Cell";
+    NSString *CellIdentifier = [NSString stringWithFormat:@"Cell %ld - %ld", (long)indexPath.section, (long)indexPath.row];
     ListVideosCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
         cell = [[ListVideosCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        VideoItem* item = [self.items objectAtIndex: indexPath.row];
+        [cell setData:item];
     }
-    
-    VideoItem* item = [self.items objectAtIndex: indexPath.row];
-    [cell setData:item];
     
     return cell;
 }
