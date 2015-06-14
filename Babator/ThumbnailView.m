@@ -73,7 +73,6 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (image) {
                     self.thumbnailView.image = image;
-                    NSLog(@"==  %@  %@", url, image);
                 }
             });
         });

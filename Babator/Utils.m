@@ -293,7 +293,7 @@
         }
     }
     
-    [strSendUrl appendFormat:@"%@.%@", @"_320_150", arrTmp.lastObject];
+    [strSendUrl appendFormat:@"%@.%@", @"_640_300", arrTmp.lastObject];
     return strSendUrl;
 }
 
