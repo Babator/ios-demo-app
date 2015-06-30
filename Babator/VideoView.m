@@ -102,9 +102,30 @@
 
 - (void)loadVideoForURL:(NSString*)url { // AVAssetResourceLoaderDelegate
     
-    self.urlVideo = url;
+//    //url = @"/Users/andreykulinskiy/Library/Developer/CoreSimulator/Devices/4B0B72CB-FBCB-4218-86C0-9DF1E5C56D78/data/Containers/Data/Application/817E765F-73F9-417E-B664-A2FC2954A145/Documents/videoTest.m4v";
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    
+//    NSString *documentsDirectory = [paths objectAtIndex:0];
+//    
+//    url = [documentsDirectory stringByAppendingPathComponent:@"/videoTest.m4v"];
+    /*
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     
-//    NSURL* urlTmp = [NSURL URLWithString:@"http://n23.filecdn.to/ff/NDcxMjk4MGZmNmRmNDBiMGY2ZjE2OTJiM2YyYmU5ZTl8ZnN0b3wxMzQ4MjY0NTc0fDEwMDAwfDJ8MHw1fDIzfGUzY2FjMTY3NjY5OWJhZjI0ZjNlNmE4ZDQ0NTMzYWQxfDB8MjQ6aC40MjpzfDB8MjAxODU5NjYwNnwxNDMzMzE4MjE4LjUzMzk,/play_698j93w00plnrodv1itd0heuu.0.4278037390.2185543202.1433148971.mp4"];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"filename"];
+    operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Successfully downloaded file to %@", path);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+    
+    [operation start];
+     */
+    
+    self.urlVideo = url;
     
     self.panelView.slider.value = 0.0;
     [self.panelView setCurrentTime:0.0 duration:self.duration];
