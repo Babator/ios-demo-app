@@ -14,12 +14,15 @@
 #import "ListVideosView.h"
 #import "VideoView.h"
 
+#import "BBTVideoLoader.h"
+#import "BBTVideoItem.h"
+
 //@import AVFoundation;
 
 @interface MainScreenController () <ListVideosViewDelegate, VideoViewDelegate>
 
 @property (nonatomic, strong) NSURL* urlTest;
-@property (nonatomic, strong) VideoItem* videoItem;
+//@property (nonatomic, strong) VideoItem* videoItem;
 @property (nonatomic, strong) VideoView* videoView;
 @property (nonatomic, strong) ListVideosView* listVideosView;
 @property (nonatomic, assign) BOOL isFullScreen;
@@ -27,6 +30,9 @@
 @property (nonatomic, strong) UIImageView* imgLogo;
 @property (nonatomic, strong) UIButton* btnMenu;
 @property (nonatomic, strong) UIImageView* lineView;
+
+@property (nonatomic, strong) BBTVideoLoader* videoLoader;
+@property (nonatomic, strong) BBTVideoItem* videoItem;
 
 @end
 
@@ -58,6 +64,8 @@
     [DataContainer sharedInstance].configDataProvider.apiKey = @"cbec4606-ce32-4ba2-8e58-f6183cd2fdf9";
     //[DataContainer sharedInstance].configDataProvider.apiKey = [ConfigDataProvider deviceId];
     
+    self.videoLoader = [[BBTVideoLoader alloc] initWithApiKey:@"cbec4606-ce32-4ba2-8e58-f6183cd2fdf9"];
+    
 //    self.urlTest = [NSURL URLWithString:@"http://n23.filecdn.to/ff/NDcxMjk4MGZmNmRmNDBiMGY2ZjE2OTJiM2YyYmU5ZTl8ZnN0b3wxMzQ4MjY0NTc0fDEwMDAwfDJ8MHw1fDIzfGUzY2FjMTY3NjY5OWJhZjI0ZjNlNmE4ZDQ0NTMzYWQxfDB8MjQ6aC40MjpzfDB8MjAxODU5NjYwNnwxNDMzMzE4MjE4LjUzMzk,/play_698j93w00plnrodv1itd0heuu.0.4278037390.2185543202.1433148971.mp4"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -84,7 +92,16 @@
 - (void)reloadData {
     [super reloadData];
     
-    [self loadFirstVideo];
+    //[self loadFirstVideo];
+    
+    // load first video and list of recommended videos.
+    [self.videoLoader firstVideoSuccess:^(BBTVideoItem *item) {
+        self.videoItem = item;
+    } failure:^{
+        [AlertViewUtil showAlert:@"Error load a first video." okBlock:^{
+            
+        }];
+    }];
 }
 
 - (void)resizeViews {
@@ -104,61 +121,61 @@
     }
 }
 
-#pragma mark -
-#pragma mark API
-- (void)loadFirstVideo {
-    
-    [Utils showHUD];
-    [self loadUserIdSuccess:^(NSString *userID) {
-        
-                                if (userID) {
-                                    [DataContainer sharedInstance].configDataProvider.userID = userID;
-                                    ServerAPI* serverAPI = [DataContainer sharedInstance].serverAPI;
-                                    [serverAPI firstVideoSuccess:^(VideoModule *request) {
-                                        self.videoItem = request.videoItem;
-                                        [Utils hideHUD];
-                                    } failure:^(Error *error) {
-                                        [Utils connectionError:error];
-                                        [Utils hideHUD];
-                                    }];
-                                }
-                                else {
-                                    [Utils hideHUD];
-                                }
-        
-                    }
-                    failure:^{
-                        [Utils hideHUD];
-                    }];
-}
-
-- (void)loadUserIdSuccess:(void (^)(NSString* userID))successBlock failure:(void (^)())failureBlock {
-    ServerAPI* serverAPI = [DataContainer sharedInstance].serverAPI;
-    
-    [serverAPI userIdForApiKey:[DataContainer sharedInstance].configDataProvider.apiKey
-                       success:^(UserIDResponseModule *request) {
-                           
-                           if (request.status != 200) {
-                               
-                               NSString* strError = @"Error Connection";
-                               if ([request.errors count] > 0) {
-                                   strError = request.errors[0];
-                               }
-                               successBlock(nil);
-                               
-                               [AlertViewUtil showAlert:strError okBlock:^{
-                                   
-                               }];
-                           }
-                           else {
-                               successBlock(request.userID);
-                           }
-                           
-                       } failure:^(Error *error) {
-                           [Utils connectionError:error];
-                           failureBlock();
-                       }];
-}
+//#pragma mark -
+//#pragma mark API
+//- (void)loadFirstVideo {
+//    
+//    [Utils showHUD];
+//    [self loadUserIdSuccess:^(NSString *userID) {
+//        
+//                                if (userID) {
+//                                    [DataContainer sharedInstance].configDataProvider.userID = userID;
+//                                    ServerAPI* serverAPI = [DataContainer sharedInstance].serverAPI;
+//                                    [serverAPI firstVideoSuccess:^(VideoModule *request) {
+//                                        self.videoItem = request.videoItem;
+//                                        [Utils hideHUD];
+//                                    } failure:^(Error *error) {
+//                                        [Utils connectionError:error];
+//                                        [Utils hideHUD];
+//                                    }];
+//                                }
+//                                else {
+//                                    [Utils hideHUD];
+//                                }
+//        
+//                    }
+//                    failure:^{
+//                        [Utils hideHUD];
+//                    }];
+//}
+//
+//- (void)loadUserIdSuccess:(void (^)(NSString* userID))successBlock failure:(void (^)())failureBlock {
+//    ServerAPI* serverAPI = [DataContainer sharedInstance].serverAPI;
+//    
+//    [serverAPI userIdForApiKey:[DataContainer sharedInstance].configDataProvider.apiKey
+//                       success:^(UserIDResponseModule *request) {
+//                           
+//                           if (request.status != 200) {
+//                               
+//                               NSString* strError = @"Error Connection";
+//                               if ([request.errors count] > 0) {
+//                                   strError = request.errors[0];
+//                               }
+//                               successBlock(nil);
+//                               
+//                               [AlertViewUtil showAlert:strError okBlock:^{
+//                                   
+//                               }];
+//                           }
+//                           else {
+//                               successBlock(request.userID);
+//                           }
+//                           
+//                       } failure:^(Error *error) {
+//                           [Utils connectionError:error];
+//                           failureBlock();
+//                       }];
+//}
 
 #pragma mark -
 #pragma mark Actions
@@ -221,7 +238,7 @@
     return _btnMenu;
 }
 
-- (void)setVideoItem:(VideoItem *)videoItem {
+- (void)setVideoItem:(BBTVideoItem *)videoItem {
     
     _videoItem = videoItem;
     
@@ -230,8 +247,9 @@
     [self.videoView setUrl:[Utils urlHDVideoForUrl:videoItem.imageUrl] title:videoItem.title duration:videoItem.durationSec];
     [self.videoView loadVideoForURL:videoItem.url];
     
+    
     if (!videoItem.videos) {
-        //self.videoView.isPlay = YES;
+        /*
         ServerAPI* serverAPI = [DataContainer sharedInstance].serverAPI;
         [serverAPI videosForVideoID:videoItem.videoID
                             success:^(VideosModule *request) {
@@ -240,6 +258,18 @@
                             } failure:^(Error *error) {
                                 [Utils connectionError:error];
                             }];
+         */
+        
+        // load list of recommended videos.
+        [self.videoLoader videosForVideoID:videoItem.videoID success:^(NSArray *items) {
+            self.videoItem.videos = items;
+            self.listVideosView.videos = items;
+            
+        } failure:^{
+            [AlertViewUtil showAlert:@"Error load a videos." okBlock:^{
+                
+            }];
+        }];
     }
     else {
         self.listVideosView.videos = videoItem.videos;
@@ -271,7 +301,7 @@
 
 #pragma mark -
 #pragma mark ListVideosView Delegate
-- (void)listVideosView:(ListVideosView*)listVideosView selectItem:(VideoItem*)item {
+- (void)listVideosView:(ListVideosView*)listVideosView selectItem:(BBTVideoItem*)item {
     [[DataContainer sharedInstance] pushToHistoryVideoItem:self.videoItem];
     self.videoItem = item;
     self.videoView.isPlay = YES;
@@ -286,7 +316,7 @@
 
 - (void)backForVideoView:(VideoView*)videoView {
     
-    VideoItem* lastItem = [[DataContainer sharedInstance] popVideoItemFromHistory];
+    BBTVideoItem* lastItem = [[DataContainer sharedInstance] popVideoItemFromHistory];
     if (lastItem) {
         self.videoItem = lastItem;
         self.videoView.isPlay = NO;

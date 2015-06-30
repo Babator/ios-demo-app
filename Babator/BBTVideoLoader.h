@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class BBTVideoItem;
+
 @interface BBTVideoLoader : NSObject
 
 // Init BBTVideoLoader
@@ -19,7 +21,7 @@
 - (void)setServerURL:(NSString*)url;
 
 // returns a video to play and list of recommended videos.
-- (void) firstVideoSuccess: (void (^)(VideoItem* item)) successBlock
+- (void) firstVideoSuccess: (void (^)(BBTVideoItem* item)) successBlock
                    failure: (void (^)()) failureBlock;
 
 // Gets the currently watched video id and  returns a list of recommended videos.

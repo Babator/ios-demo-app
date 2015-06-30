@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class VideoItem;
+@class BBTVideoItem;
 
 @interface ListVideosCell : UITableViewCell
 
-- (void)setData:(VideoItem*)item;
+- (void)setData:(BBTVideoItem*)item;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "BBTVideoLoader.h"
 #import "VideoItem.h"
+#import "BBTVideoItem.h"
 #import "UserIDResponseModule.h"
 
 @interface BBTVideoLoader ()
@@ -35,8 +36,14 @@
     
 }
 
-- (void) firstVideoSuccess: (void (^)(VideoItem* item)) successBlock
+- (void) firstVideoSuccess: (void (^)(BBTVideoItem* item)) successBlock
                    failure: (void (^)()) failureBlock {
+    
+    if (!self.apiKey) {
+        NSLog(@"BBTVideoLoader Error: ApiKey == nil");
+        failureBlock();
+        return;
+    }
     
     [self loadUserIdSuccess:^(NSString *userID) {
         
@@ -46,12 +53,11 @@
                             [serverAPI firstVideoSuccess:^(VideoModule *request) {
                                 
                                 if (request.videoItem) {
-                                    successBlock(request.videoItem);
+                                    successBlock([self createBBTVideoItemForVideoItem:request.videoItem]);
                                 }
                                 else {
                                     failureBlock();
                                 }
-                                [Utils hideHUD];
                             } failure:^(Error *error) {
                                 //[Utils connectionError:error];
                                 failureBlock();
@@ -63,7 +69,7 @@
                         
                     }
                     failure:^{
-                        [Utils hideHUD];
+                        failureBlock();
                     }];
 }
 
@@ -71,6 +77,13 @@
                   success: (void (^)(NSArray* items)) successBlock
                   failure: (void (^)()) failureBlock {
     
+    ServerAPI* serverAPI = [DataContainer sharedInstance].serverAPI;
+    [serverAPI videosForVideoID:videoID
+                        success:^(VideosModule *request) {
+                            successBlock(request.videos);
+                        } failure:^(Error *error) {
+                            failureBlock();
+                        }];
 }
 
 #pragma mark -
@@ -78,7 +91,7 @@
 - (void)loadUserIdSuccess:(void (^)(NSString* userID))successBlock failure:(void (^)())failureBlock {
     ServerAPI* serverAPI = [DataContainer sharedInstance].serverAPI;
     
-    [serverAPI userIdForApiKey:[DataContainer sharedInstance].configDataProvider.apiKey
+    [serverAPI userIdForApiKey:self.apiKey
                        success:^(UserIDResponseModule *request) {
                            
                            if (request.status != 200) {
@@ -94,9 +107,21 @@
                            }
                            
                        } failure:^(Error *error) {
-                           [Utils connectionError:error];
                            failureBlock();
                        }];
+}
+
+- (BBTVideoItem*)createBBTVideoItemForVideoItem:(VideoItem*)videoItem {
+    
+    BBTVideoItem* item = [[BBTVideoItem alloc] init];
+    item.videoID = videoItem.videoID;
+    item.durationSec = videoItem.durationSec;
+    item.title = videoItem.title;
+    item.url = videoItem.url;
+    item.imageUrl = videoItem.imageUrl;
+    item.videos = videoItem.videos;
+    
+    return item;
 }
 
 @end

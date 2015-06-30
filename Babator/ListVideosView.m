@@ -8,7 +8,7 @@
 
 #import "ListVideosView.h"
 #import "ListVideosCell.h"
-#import "VideoItem.h"
+#import "BBTVideoItem.h"
 
 #define HeightCell 150
 
@@ -102,7 +102,7 @@
     if (cell == nil) {
         cell = [[ListVideosCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        VideoItem* item = [self.items objectAtIndex: indexPath.row];
+        BBTVideoItem* item = [self.items objectAtIndex: indexPath.row];
         [cell setData:item];
     }
     
@@ -121,7 +121,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    VideoItem* item = [self.items objectAtIndex: indexPath.row];
+    BBTVideoItem* item = [self.items objectAtIndex: indexPath.row];
     [self.delegate listVideosView:self selectItem:item];
 }
 

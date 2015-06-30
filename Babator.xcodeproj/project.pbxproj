@@ -42,6 +42,7 @@
 		F6424D7B1B1DECE70035DE3C /* UserIDResponseModule.m in Sources */ = {isa = PBXBuildFile; fileRef = F6424D7A1B1DECE70035DE3C /* UserIDResponseModule.m */; };
 		F6424D7D1B1DF5840035DE3C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F6424D7C1B1DF5840035DE3C /* Localizable.strings */; };
 		F68334361B42DA0000929125 /* BBTVideoLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = F68334351B42DA0000929125 /* BBTVideoLoader.m */; };
+		F68334391B42F25F00929125 /* BBTVideoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F68334381B42F25F00929125 /* BBTVideoItem.m */; };
 		F692AED81B2043DB00181475 /* ListVideosView.m in Sources */ = {isa = PBXBuildFile; fileRef = F692AED71B2043DB00181475 /* ListVideosView.m */; };
 		F692AEDC1B20464900181475 /* ListVideosCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F692AEDB1B20464900181475 /* ListVideosCell.m */; };
 		F692AEDF1B205CEA00181475 /* VideosModule.m in Sources */ = {isa = PBXBuildFile; fileRef = F692AEDE1B205CEA00181475 /* VideosModule.m */; };
@@ -160,6 +161,8 @@
 		F6424D7C1B1DF5840035DE3C /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		F68334341B42DA0000929125 /* BBTVideoLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTVideoLoader.h; sourceTree = "<group>"; };
 		F68334351B42DA0000929125 /* BBTVideoLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTVideoLoader.m; sourceTree = "<group>"; };
+		F68334371B42F25F00929125 /* BBTVideoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTVideoItem.h; sourceTree = "<group>"; };
+		F68334381B42F25F00929125 /* BBTVideoItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTVideoItem.m; sourceTree = "<group>"; };
 		F692AED61B2043DB00181475 /* ListVideosView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListVideosView.h; sourceTree = "<group>"; };
 		F692AED71B2043DB00181475 /* ListVideosView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListVideosView.m; sourceTree = "<group>"; };
 		F692AEDA1B20464900181475 /* ListVideosCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListVideosCell.h; sourceTree = "<group>"; };
@@ -444,6 +447,8 @@
 			children = (
 				F68334341B42DA0000929125 /* BBTVideoLoader.h */,
 				F68334351B42DA0000929125 /* BBTVideoLoader.m */,
+				F68334371B42F25F00929125 /* BBTVideoItem.h */,
+				F68334381B42F25F00929125 /* BBTVideoItem.m */,
 			);
 			name = BBTVideoLoader;
 			sourceTree = "<group>";
@@ -605,6 +610,7 @@
 				F692AEEE1B20846400181475 /* VideoPanelView.m in Sources */,
 				F6424D361B1DBE970035DE3C /* AlertView.m in Sources */,
 				F6424D641B1DE03D0035DE3C /* ServerAPI.m in Sources */,
+				F68334391B42F25F00929125 /* BBTVideoItem.m in Sources */,
 				F6424D261B1DB8780035DE3C /* ScreenManager.m in Sources */,
 				F6424D031B1DB6A80035DE3C /* AppDelegate.m in Sources */,
 				F6424D3A1B1DC0830035DE3C /* MainScreenController.m in Sources */,

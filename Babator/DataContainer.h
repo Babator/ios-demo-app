@@ -10,6 +10,8 @@
 #import "ConfigDataProvider.h"
 #import "ServerAPI.h"
 
+@class BBTVideoItem;
+
 @interface DataContainer : NSObject
 
 + (DataContainer*)sharedInstance;
@@ -17,8 +19,8 @@
 @property (nonatomic, strong) ConfigDataProvider* configDataProvider;
 @property (nonatomic, strong) ServerAPI * serverAPI;
 
-- (void)pushToHistoryVideoItem:(VideoItem*)videoItem;
-- (VideoItem*)popVideoItemFromHistory;
-- (VideoItem*)peekVideoItemFromHistory;
+- (void)pushToHistoryVideoItem:(BBTVideoItem*)videoItem;
+- (BBTVideoItem*)popVideoItemFromHistory;
+- (BBTVideoItem*)peekVideoItemFromHistory;
 
 @end

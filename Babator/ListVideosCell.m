@@ -7,7 +7,7 @@
 //
 
 #import "ListVideosCell.h"
-#import "VideoItem.h"
+#import "BBTVideoItem.h"
 #import "ThumbnailView.h"
 
 #define MarginLeft 10
@@ -54,7 +54,7 @@
 
 #pragma mark -
 #pragma mark Methods
-- (void)setData:(VideoItem*)item
+- (void)setData:(BBTVideoItem*)item
 {
     [self.thumbnailView setUrl:[Utils urlHDVideoForUrl:item.imageUrl] title:item.title duration:item.durationSec];
     self.lblTitle.text = item.title;

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class VideoItem;
+@class BBTVideoItem;
 @protocol ListVideosViewDelegate;
 
 @interface ListVideosView : UIView
@@ -20,6 +20,6 @@
 
 @protocol ListVideosViewDelegate <NSObject>
 
-- (void)listVideosView:(ListVideosView*)listVideosView selectItem:(VideoItem*)item;
+- (void)listVideosView:(ListVideosView*)listVideosView selectItem:(BBTVideoItem*)item;
 
 @end

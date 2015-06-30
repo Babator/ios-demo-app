@@ -7,6 +7,7 @@
 //
 
 #import "DataContainer.h"
+#import "BBTVideoItem.h"
 
 @interface DataContainer ()
 
@@ -40,7 +41,7 @@
     return self;
 }
 
-- (void)pushToHistoryVideoItem:(VideoItem*)videoItem {
+- (void)pushToHistoryVideoItem:(BBTVideoItem*)videoItem {
     
     if (videoItem) {
         [self.historyVideos addObject:videoItem];
@@ -50,9 +51,9 @@
     }
 }
 
-- (VideoItem*)popVideoItemFromHistory {
+- (BBTVideoItem*)popVideoItemFromHistory {
     
-    VideoItem* lastItem = [self.historyVideos lastObject];
+    BBTVideoItem* lastItem = [self.historyVideos lastObject];
     if (lastItem) {
         [self.historyVideos removeLastObject];
     }
@@ -60,9 +61,9 @@
     return lastItem;
 }
 
-- (VideoItem*)peekVideoItemFromHistory {
+- (BBTVideoItem*)peekVideoItemFromHistory {
     
-    VideoItem* lastItem = [self.historyVideos lastObject];
+    BBTVideoItem* lastItem = [self.historyVideos lastObject];
     return lastItem;
 }
 
