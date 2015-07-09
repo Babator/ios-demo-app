@@ -18,6 +18,7 @@
 #import "BBTVideoItem.h"
 
 //@import AVFoundation;
+@import MediaPlayer;
 
 @interface MainScreenController () <ListVideosViewDelegate, VideoViewDelegate>
 
@@ -95,9 +96,12 @@
     //[self loadFirstVideo];
     
     // load first video and list of recommended videos.
+    [Utils showHUD];
     [self.videoLoader firstVideoSuccess:^(BBTVideoItem *item) {
         self.videoItem = item;
+        [Utils hideHUD];
     } failure:^{
+        [Utils hideHUD];
         [AlertViewUtil showAlert:@"Error load a first video." okBlock:^{
             
         }];
@@ -245,7 +249,8 @@
     self.lblTitle.text = videoItem.title;
     //[self.videoView setUrl:videoItem.imageUrl title:videoItem.title duration:videoItem.durationSec];
     [self.videoView setUrl:[Utils urlHDVideoForUrl:videoItem.imageUrl] title:videoItem.title duration:videoItem.durationSec];
-    [self.videoView loadVideoForURL:videoItem.url];
+    [self.videoLoader cachingForVideoID:videoItem.videoID];
+    [self.videoView loadVideoForURL:videoItem.url size:videoItem.size];
     
     
     if (!videoItem.videos) {
@@ -260,8 +265,9 @@
                             }];
          */
         
+        self.listVideosView.videos = nil;
         // load list of recommended videos.
-        [self.videoLoader videosForVideoID:videoItem.videoID success:^(NSArray *items) {
+        [self.videoLoader videosForVideo:videoItem success:^(NSArray *items) {
             self.videoItem.videos = items;
             self.listVideosView.videos = items;
             

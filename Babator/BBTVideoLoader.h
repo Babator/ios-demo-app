@@ -27,8 +27,10 @@
 // Gets the currently watched video id and  returns a list of recommended videos.
 // param: videoID - video ID
 // return list VideoItem
-- (void)videosForVideoID: (NSInteger) videoID
+- (void)videosForVideo: (BBTVideoItem*) video
                   success: (void (^)(NSArray* items)) successBlock
                   failure: (void (^)()) failureBlock;
+
+- (void)cachingForVideoID:(NSInteger)videoID;
 
 @end

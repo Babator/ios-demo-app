@@ -51,6 +51,7 @@
 + (void)connectionError:(Error*)error;
 
 + (NSString*)urlHDVideoForUrl:(NSString*)url;
++ (NSString*)pathForCachingData;
 
 @end
 

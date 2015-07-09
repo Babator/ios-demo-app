@@ -297,6 +297,14 @@
     return strSendUrl;
 }
 
++ (NSString*)pathForCachingData {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    //NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"/CacheVideo"];
+    return path;
+}
+
 
 @end
 

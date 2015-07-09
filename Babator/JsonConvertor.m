@@ -90,8 +90,14 @@
     
     NSArray* videos = [dicData objectForKey:@"videos"];
     NSMutableArray* addVideos = [NSMutableArray array];
+    
+    NSInteger index = 0;
     for (NSDictionary* dicVideo in videos) {
+        if (index >= 10) {
+            break;
+        }
         [addVideos addObject:[JsonConvertor videoItemFromDictionary:dicVideo]];
+        index ++;
     }
 
     videoItem.videos = addVideos;
@@ -112,8 +118,15 @@
     
     NSArray* videos = [dicData objectForKey:@"videos"];
     NSMutableArray* addVideos = [NSMutableArray array];
+    
+    
+    NSInteger index = 0;
     for (NSDictionary* dicVideo in videos) {
+        if (index >= 10) {
+            break;
+        }
         [addVideos addObject:[JsonConvertor videoItemFromDictionary:dicVideo]];
+        index ++;
     }
     
     result.videos = addVideos;
@@ -135,114 +148,6 @@
     
     return result;
 }
-
-//+ (NSDictionary *)dictionaryFormLoginParams:(LoginParams*) loginParams
-//{
-//    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys: loginParams.userName, @"username",
-//                                loginParams.password, @"password", nil];
-//    return dictionary;
-//}
-//
-//+ (LoginResult *)loginResultFromDictionary:(NSDictionary *)dictionary
-//{
-//    if (!dictionary || (id)dictionary == [NSNull null])
-//        return nil;
-//    
-//    LoginResult * loginResult = [[LoginResult alloc]init];
-//    loginResult.token = [dictionary objectForKey:@"token"];
-//    loginResult.message = [dictionary objectForKey:@"message"];
-//    loginResult.chains = [JsonConvertor chainsFromArray:[dictionary objectForKey:@"chains"]];
-//    loginResult.user = [self userFromDictionary:[dictionary objectForKey:@"user"]];
-//    loginResult.codeError = [JsonConvertor integerFormData:[dictionary objectForKey:@"code"]];
-//    loginResult.messageError = [dictionary objectForKey:@"message"];
-//    loginResult.accessLevel = [JsonConvertor accessLevelFromDictionary:[dictionary objectForKey:@"accessLevel"]];
-//    loginResult.settingConfig = [JsonConvertor settingConfigFromDictionary:[dictionary objectForKey:@"scheduleSettings"]];
-//    
-//    return loginResult;
-//}
-
-//+ (NSArray*) chainsFromArray:(NSArray*)arrayData
-//{
-//    NSMutableArray* result = [NSMutableArray array];
-//    
-//    for (NSDictionary* jsonItem in arrayData)
-//    {
-//        Chain* chain = [JsonConvertor chainFromDictionary:jsonItem];
-//        [result addObject:chain];
-//    }
-//    
-//    return result;
-//}
-//
-//+ (Chain*)chainFromDictionary:(NSDictionary*) dictionary
-//{
-//    if (!dictionary || (id)dictionary == [NSNull null])
-//        return nil;
-//    
-//    Chain* chain = [[Chain alloc] init];
-//    
-//    chain.chainID = [[dictionary objectForKey:@"chain_id"]integerValue];
-//    chain.countryCode  = [dictionary objectForKey:@"country_code"];
-//    chain.createDate  = [Utils dateFromString:[dictionary objectForKey:@"create_date"]];
-//    chain.creatorID = [[dictionary objectForKey:@"creator_id"]integerValue];
-//    chain.emailSettings  = [dictionary objectForKey:@"email_settings"];
-//    chain.logo  = [dictionary objectForKey:@"logo"];
-//    chain.name  = [dictionary objectForKey:@"name"];
-//    chain.descript  = [dictionary objectForKey:@"description"];
-//    chain.codeError = [JsonConvertor integerFormData:[dictionary objectForKey:@"code"]];
-//    chain.messageError = [dictionary objectForKey:@"message"];
-//    chain.loginUrl = [dictionary objectForKey:@"loginUrl"];
-//    
-//    return chain;
-//}
-
-//+ (ShowWeekType)showWeekTypeFromString:(NSString*)string
-//{
-//    ShowWeekType result = ShowWeekType_Default;
-//    if (!string || (id)string == [NSNull null]) {
-//        return result;
-//    }
-//    
-//    if ([string isEqualToString:@"current_week"]) {
-//        result = ShowWeekType_CurrentWeek;
-//    }
-//    else if ([string isEqualToString:@"current_week_and_next"]) {
-//        result = ShowWeekType_CurrentWeekAndNext;
-//    }
-//    
-//    return result;
-//}
-
-//+ (NSString*)stringFromUserStatus:(UserStatus)userStatus
-//{
-//    NSString* result = @"";
-//    
-//    switch (userStatus) {
-//        case UserStatus_None:
-//            result = (id)[NSNull null];
-//            break;
-//        case UserStatus_Want:
-//            result = @"want";
-//            break;
-//        case UserStatus_Can:
-//            result = @"can";
-//            break;
-//        case UserStatus_Cant:
-//            result = @"cant";
-//            break;
-//        case UserStatus_Exchange:
-//            result = @"exchange";
-//            break;
-//        case UserStatus_CancelExchange:
-//            result = @"cancel-exchange";
-//            break;
-//        case UserStatus_Cancel:
-//            result = @"cancel";
-//            break;
-//    }
-//    
-//    return result;
-//}
 
 
 @end

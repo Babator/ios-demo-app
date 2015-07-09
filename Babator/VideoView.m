@@ -12,12 +12,14 @@
 
 @import AVFoundation;
 
-@interface VideoView () <VideoPanelViewDelegate>
+@interface VideoView () <VideoPanelViewDelegate, AVAssetResourceLoaderDelegate>
 
 @property (nonatomic, strong) AKPlayerView* playerView;
 @property (nonatomic, strong) VideoPanelView* panelView;
 @property (nonatomic, strong) NSTimer* sliderTimer;
 @property (nonatomic, copy) NSString* urlVideo;
+@property (nonatomic, assign) unsigned long totalSize;
+@property (nonatomic, assign) BOOL isFirstCaching;
 
 @end
 
@@ -100,32 +102,11 @@
     [self.panelView setCurrentTime:0.0 duration:duration];
 }
 
-- (void)loadVideoForURL:(NSString*)url { // AVAssetResourceLoaderDelegate
-    
-//    //url = @"/Users/andreykulinskiy/Library/Developer/CoreSimulator/Devices/4B0B72CB-FBCB-4218-86C0-9DF1E5C56D78/data/Containers/Data/Application/817E765F-73F9-417E-B664-A2FC2954A145/Documents/videoTest.m4v";
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    
-//    NSString *documentsDirectory = [paths objectAtIndex:0];
-//    
-//    url = [documentsDirectory stringByAppendingPathComponent:@"/videoTest.m4v"];
-    /*
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"filename"];
-    operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Successfully downloaded file to %@", path);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
-    
-    [operation start];
-     */
+- (void)loadVideoForURL:(NSString*)url size:(unsigned long)size {
     
     self.urlVideo = url;
+    self.totalSize = size;
+    self.isFirstCaching = YES;
     
     self.panelView.slider.value = 0.0;
     [self.panelView setCurrentTime:0.0 duration:self.duration];
@@ -134,12 +115,97 @@
     self.sliderTimer = nil;
     
     self.playerView.hidden = YES;
+    //NSLog(@"%@", [NSURL fileURLWithPath: url]);
     AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:url] options:nil];
-    //AVURLAsset *asset = [AVURLAsset URLAssetWithURL:urlTmp options:nil];
+    
+    //AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL fileURLWithPath: url] options:nil];
+    [asset.resourceLoader setDelegate:self queue:dispatch_get_main_queue()];
+    
     AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:asset];
     AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
+    
+    //AVPlayer *player = [AVPlayer playerWithURL:[NSURL fileURLWithPath: url]];
+    
     self.playerView.player = player;
+    
+    //[self performSelector:@selector(loadVideoForURL_helper) withObject:nil afterDelay:5.0];
 }
+
+- (BOOL)resourceLoader:(AVAssetResourceLoader *)resourceLoader shouldWaitForLoadingOfRequestedResource:(AVAssetResourceLoadingRequest *)loadingRequest
+{
+    //NSLog(@"shouldWaitForLoadingOfRequestedResource");
+    
+    //NSLog(@"%@", loadingRequest.request.URL);
+    if (![[loadingRequest.request.URL absoluteString] isEqualToString:self.urlVideo]) {
+        //NSLog(@"isn't Equal");
+        return NO;
+    }
+    
+    NSData* data = [NSData dataWithContentsOfFile:self.urlVideo];
+    
+//    NSLog(@"==================");
+//    NSLog(@"Request: %@", [loadingRequest.request.URL absoluteString]);
+//    NSLog(@"Data: %@", self.urlVideo);
+    
+    loadingRequest.contentInformationRequest.contentType = @"mp4";
+    //loadingRequest.contentInformationRequest.contentLength = [data length];
+    loadingRequest.contentInformationRequest.contentLength = self.totalSize;
+    //loadingRequest.contentInformationRequest.contentLength = 1000000;
+    loadingRequest.contentInformationRequest.byteRangeAccessSupported = YES;
+    
+//    NSLog(@"======================");
+//    NSLog(@"requestedOffset: %lld", loadingRequest.dataRequest.requestedOffset);
+//    NSLog(@"requestedLength: %ld", (long)loadingRequest.dataRequest.requestedLength);
+//    NSLog(@"data.length: %ld", (long)data.length);
+//    NSLog(@"totalSize: %ld", (long)self.totalSize);
+    
+    if (self.isFirstCaching) {
+        data = [data subdataWithRange:NSMakeRange((NSUInteger)loadingRequest.dataRequest.requestedOffset,
+                                                  (NSUInteger)loadingRequest.dataRequest.requestedLength)];
+        self.isFirstCaching = NO;
+    }
+    else {
+        
+        NSUInteger loadSize = 300000;
+        
+        if (loadingRequest.dataRequest.requestedLength < loadSize) {
+            loadSize = loadingRequest.dataRequest.requestedLength;
+        }
+        
+        if (loadingRequest.dataRequest.requestedOffset + loadSize > data.length) {
+            return NO;
+        }
+        
+        data = [data subdataWithRange:NSMakeRange((NSUInteger)loadingRequest.dataRequest.requestedOffset,
+                                                  (NSUInteger)loadSize)];
+    }
+    
+//    data = [data subdataWithRange:NSMakeRange((NSUInteger)loadingRequest.dataRequest.requestedOffset,
+//                                                                        (NSUInteger)loadingRequest.dataRequest.requestedLength)];
+    
+    [loadingRequest.dataRequest respondWithData:data];
+    [loadingRequest finishLoading];
+    return YES;
+}
+
+- (BOOL)resourceLoader:(AVAssetResourceLoader *)resourceLoader shouldWaitForRenewalOfRequestedResource:(AVAssetResourceRenewalRequest *)renewalRequest {
+    
+    NSLog(@"shouldWaitForRenewalOfRequestedResource");
+    return YES;
+}
+
+- (void)resourceLoader:(AVAssetResourceLoader *)resourceLoader didCancelLoadingRequest:(AVAssetResourceLoadingRequest *)loadingRequest {
+    NSLog(@"didCancelLoadingRequest");
+}
+
+//- (void)loadVideoForURL_helper {
+//    AVPlayer *player = [AVPlayer playerWithURL:[NSURL fileURLWithPath: self.urlVideo]];
+//    [player seekToTime:self.playerView.player.currentTime];
+//    self.playerView.player = player;
+//    [self videoPlay:YES];
+//    
+//    //[self performSelector:@selector(loadVideoForURL_helper) withObject:nil afterDelay:3.0];
+//}
 
 - (void)videoPlay:(BOOL)isPlay {
     
@@ -154,6 +220,7 @@
     self.panelView.isPlay = isPlay;
     
     if (isPlay) {
+        
         [self.playerView.player play];
         if (!self.sliderTimer) {
             self.sliderTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateSlider) userInfo:nil repeats:YES];
@@ -161,6 +228,7 @@
     }
     else {
         [self.playerView.player pause];
+        [self.playerView.player cancelPendingPrerolls];
     }
     
     [self hidePanelControl];
@@ -288,7 +356,7 @@
 #pragma mark -
 #pragma mark Notifications
 - (void)playToEndTimeNotification:(NSNotification*)notification {
-    //NSLog(@"AVPlayerItemDidPlayToEndTimeNotification");
+    NSLog(@"AVPlayerItemDidPlayToEndTimeNotification");
     //[self videoPlay:NO];
     self.isPlay = NO;
     [self showPanel:YES];

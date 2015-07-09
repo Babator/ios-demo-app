@@ -18,7 +18,7 @@
 @property (nonatomic, assign) BOOL isPlay;
 @property (nonatomic, assign) BOOL isHidePlayer;
 
-- (void)loadVideoForURL:(NSString*)url;
+- (void)loadVideoForURL:(NSString*)url size:(unsigned long)size;
 
 @end
 
