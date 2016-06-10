@@ -24,15 +24,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _mpPlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:@"http://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4"]];
-    _mpPlayer.moviePlayer.shouldAutoplay = NO;
+    _mpPlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:@"http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4"]];
+    _mpPlayer.moviePlayer.shouldAutoplay = YES;
     [self addChildViewController:self.mpPlayer];
     CGSize screen = self.view.frame.size;
     _playerRect = self.mpPlayer.view.frame = (CGRect){0, 64, screen.width, (screen.width / 16) * 9};
     [self.view addSubview:_mpPlayer.view];
-    _customNativeControlsLayer.frame = (CGRect){CGPointZero, self.mpPlayer.view.frame.size};
-    [_mpPlayer.view addSubview:_customNativeControlsLayer];
-    _customNativeControlsLayer.hidden = NO;
     _babtorViewController = [[BabatorViewController alloc] initWithAPIKey:@"d035223d-8bba-40d2-bb13-5a22298250c6"];
     _babtorViewController.suggestionsSize = 10;
     [_babtorViewController addPlayer:self.mpPlayer.moviePlayer];
@@ -81,18 +78,6 @@
     [self.mpPlayer.moviePlayer stop];
     [self.mpPlayer.moviePlayer setContentURL:videoParams.url];
     [self.mpPlayer.moviePlayer play];
-}
-
-- (IBAction)play:(id)sender {
-    [self.mpPlayer.moviePlayer play];
-}
-
-- (IBAction)pause:(id)sender {
-    [self.mpPlayer.moviePlayer pause];
-}
-
-- (IBAction)removeNativePlayerControls:(id)sender {
-    self.mpPlayer.moviePlayer.controlStyle = MPMovieControlStyleNone;
 }
 
 @end

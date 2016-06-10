@@ -7,17 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF27A9F01D0AE72000256D79 /* BabatorUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF27A9E71D0AE0B000256D79 /* BabatorUI.framework */; };
+		BF27A9F11D0AE72000256D79 /* BabatorUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BF27A9E71D0AE0B000256D79 /* BabatorUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BF3FE8471CE925C000A6353B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3FE8461CE925C000A6353B /* main.m */; };
 		BF3FE84A1CE925C100A6353B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3FE8491CE925C100A6353B /* AppDelegate.m */; };
 		BF3FE84D1CE925C100A6353B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3FE84C1CE925C100A6353B /* ViewController.m */; };
 		BF3FE8501CE925C100A6353B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF3FE84E1CE925C100A6353B /* Main.storyboard */; };
 		BF3FE8521CE925C100A6353B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF3FE8511CE925C100A6353B /* Assets.xcassets */; };
 		BF3FE8551CE925C100A6353B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF3FE8531CE925C100A6353B /* LaunchScreen.storyboard */; };
-		BF43405C1CF5A88C00926AC5 /* BabatorBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BF43405B1CF5A88C00926AC5 /* BabatorBundle.bundle */; };
-		BF43405E1CF5A8A300926AC5 /* BabatorUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF43405D1CF5A8A300926AC5 /* BabatorUI.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		BF27A9F21D0AE72000256D79 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				BF27A9F11D0AE72000256D79 /* BabatorUI.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		BF27A9E71D0AE0B000256D79 /* BabatorUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BabatorUI.framework; sourceTree = "<group>"; };
 		BF3FE8421CE925C000A6353B /* testBabatorSDK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testBabatorSDK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF3FE8461CE925C000A6353B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BF3FE8481CE925C100A6353B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -28,8 +43,6 @@
 		BF3FE8511CE925C100A6353B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF3FE8541CE925C100A6353B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF3FE8561CE925C100A6353B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BF43405B1CF5A88C00926AC5 /* BabatorBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BabatorBundle.bundle; sourceTree = "<group>"; };
-		BF43405D1CF5A8A300926AC5 /* BabatorUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BabatorUI.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,7 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF43405E1CF5A8A300926AC5 /* BabatorUI.framework in Frameworks */,
+				BF27A9F01D0AE72000256D79 /* BabatorUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,8 +76,7 @@
 		BF3FE8441CE925C000A6353B /* testBabatorSDK */ = {
 			isa = PBXGroup;
 			children = (
-				BF43405D1CF5A8A300926AC5 /* BabatorUI.framework */,
-				BF43405B1CF5A88C00926AC5 /* BabatorBundle.bundle */,
+				BF27A9E71D0AE0B000256D79 /* BabatorUI.framework */,
 				BF3FE8481CE925C100A6353B /* AppDelegate.h */,
 				BF3FE8491CE925C100A6353B /* AppDelegate.m */,
 				BF3FE84B1CE925C100A6353B /* ViewController.h */,
@@ -96,6 +108,7 @@
 				BF3FE83E1CE925C000A6353B /* Sources */,
 				BF3FE83F1CE925C000A6353B /* Frameworks */,
 				BF3FE8401CE925C000A6353B /* Resources */,
+				BF27A9F21D0AE72000256D79 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -144,7 +157,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF3FE8551CE925C100A6353B /* LaunchScreen.storyboard in Resources */,
-				BF43405C1CF5A88C00926AC5 /* BabatorBundle.bundle in Resources */,
 				BF3FE8521CE925C100A6353B /* Assets.xcassets in Resources */,
 				BF3FE8501CE925C100A6353B /* Main.storyboard in Resources */,
 			);
@@ -281,7 +293,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
-					"-all_load",
 					"$(inherited)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.babator.testBabatorSDK;
@@ -301,7 +312,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
-					"-all_load",
 					"$(inherited)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.babator.testBabatorSDK;
