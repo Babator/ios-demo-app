@@ -7,16 +7,16 @@
 //
 
 #import "ViewController.h"
-#import <BabatorUI/BabatorUI.h>
 #import <MediaPlayer/MPMoviePlayerViewController.h>
 #import <MediaPlayer/MPMoviePlayerController.h>
+
+#import <BabatorUI/BabatorUI.h>
 
 @interface ViewController () <BabatorViewControllerDelegate>
 
 @property (nonatomic,strong) MPMoviePlayerViewController *mpPlayer;
 @property (nonatomic, strong) BabatorViewController *babtorViewController;
 @property (nonatomic) CGRect playerRect;
-@property (weak, nonatomic) IBOutlet UIView *customNativeControlsLayer;
 
 @end
 
@@ -26,6 +26,7 @@
     [super viewDidLoad];
     _mpPlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:@"http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4"]];
     _mpPlayer.moviePlayer.shouldAutoplay = YES;
+    _mpPlayer.moviePlayer.controlStyle = MPMovieControlStyleEmbedded;
     [self addChildViewController:self.mpPlayer];
     CGSize screen = self.view.frame.size;
     _playerRect = self.mpPlayer.view.frame = (CGRect){0, 64, screen.width, (screen.width / 16) * 9};
@@ -33,14 +34,12 @@
     _babtorViewController = [[BabatorViewController alloc] initWithAPIKey:@"d035223d-8bba-40d2-bb13-5a22298250c6"];
     _babtorViewController.suggestionsSize = 10;
     [_babtorViewController addPlayer:self.mpPlayer.moviePlayer];
-    [_babtorViewController playerParentView:self.mpPlayer.moviePlayer.view];
     _babtorViewController.delegate = self;
     [_babtorViewController loadBabatorRecommendationsInto:self];
-    CGFloat listY = self.mpPlayer.view.frame.size.height + self.mpPlayer.view.frame.origin.y;
-    CGFloat listHeight = screen.height - listY;
-    [self.view addSubview:_babtorViewController.view];
-    _babtorViewController.view.frame = (CGRect){0, listY, screen.width, listHeight};
-    // Do any additional setup after loading the view, typically from a nib.
+    //CGFloat listY = self.mpPlayer.view.frame.size.height + self.mpPlayer.view.frame.origin.y;
+    //CGFloat listHeight = screen.height - listY;
+    //[self.view addSubview:_babtorViewController.view];
+   // _babtorViewController.view.frame = (CGRect){0, listY, screen.width, listHeight};
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -65,9 +64,9 @@
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
         if (size.width < size.height) {
             _mpPlayer.view.frame = _playerRect;
-            _babtorViewController.view.hidden = NO;
+   //         _babtorViewController.view.hidden = NO;
         } else {
-            _babtorViewController.view.hidden = YES;
+    //        _babtorViewController.view.hidden = YES;
             _mpPlayer.view.frame = (CGRect){CGPointZero, size};
         }
     } completion:nil];
