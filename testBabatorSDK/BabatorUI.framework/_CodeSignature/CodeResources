@@ -6,23 +6,23 @@
 	<dict>
 		<key>BBCategoryView.nib</key>
 		<data>
-		4NQ91sSvb6Sy6jU+h7jvtXdMgV4=
+		TeV8b6GkKFdpsZxHycC/DAX8FHA=
 		</data>
 		<key>BBListView.nib</key>
 		<data>
-		LVJWZMB9a1mj1F4hdRT6wOkWNIY=
+		qbZ8N1wDhe7g01rHjcyYiRKzWfo=
 		</data>
 		<key>BBRecommendationTableViewCell.nib</key>
 		<data>
-		r/XL8NY+4DJqqSg2Nvq5IQNcloU=
+		RP78IfxZNuqPf68+alBq/ivN1LI=
 		</data>
 		<key>BBTopRecommendationView.nib</key>
 		<data>
-		2Qo2XX8s5Ohbou2Xug/bVb/oe48=
+		QTX6mJDGC+ufT4Ba0xn7+hK8xzc=
 		</data>
 		<key>BBVideoCollectionViewCell.nib</key>
 		<data>
-		2pZpgoHPSIkXnU6/yUo0LrzTSGk=
+		+2ot6IFelX+FPphjLd72kVujqZ0=
 		</data>
 		<key>Headers/BabatorProtocols.h</key>
 		<data>
@@ -30,7 +30,7 @@
 		</data>
 		<key>Headers/BabatorUI.h</key>
 		<data>
-		RisPSsUZVLVfEwXFbxGGB96GZyM=
+		q+hznXtgFb/WswluRGIohVO84xo=
 		</data>
 		<key>Headers/BabatorViewController.h</key>
 		<data>
@@ -55,55 +55,55 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			4NQ91sSvb6Sy6jU+h7jvtXdMgV4=
+			TeV8b6GkKFdpsZxHycC/DAX8FHA=
 			</data>
 			<key>hash2</key>
 			<data>
-			NgKbYiLb1QANP49BSBqTnBBrius1vP0JnLDOgHSeuP8=
+			FPLPAgP4E7iI7uaqEUAB2rzBOJQAkvawYIcMnx2bfBs=
 			</data>
 		</dict>
 		<key>BBListView.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			LVJWZMB9a1mj1F4hdRT6wOkWNIY=
+			qbZ8N1wDhe7g01rHjcyYiRKzWfo=
 			</data>
 			<key>hash2</key>
 			<data>
-			XObDX+Ql8O0FqwJWIyCs6waBE/LHOzClvXUPmDhj+K4=
+			+pgPXJOWwIqASys62FJjI5cYtV/KdaqAyn0DmH5k5bs=
 			</data>
 		</dict>
 		<key>BBRecommendationTableViewCell.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			r/XL8NY+4DJqqSg2Nvq5IQNcloU=
+			RP78IfxZNuqPf68+alBq/ivN1LI=
 			</data>
 			<key>hash2</key>
 			<data>
-			GLNRWnWE/BO0Vh58+p7hF878vQucZpbI8IMVRB9qmDI=
+			hcYtv44yiqkFbFr+No619Hwuj2P4KCfCXPJYP9BiF18=
 			</data>
 		</dict>
 		<key>BBTopRecommendationView.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			2Qo2XX8s5Ohbou2Xug/bVb/oe48=
+			QTX6mJDGC+ufT4Ba0xn7+hK8xzc=
 			</data>
 			<key>hash2</key>
 			<data>
-			ca527Pfbs2A7BIaqyKskVZEvUQJbjxsFko01rW1RPmg=
+			Yq3XI9oR1OmTBPoSYEE7nCJ+yq7Uu88QCY66A/DtByA=
 			</data>
 		</dict>
 		<key>BBVideoCollectionViewCell.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			2pZpgoHPSIkXnU6/yUo0LrzTSGk=
+			+2ot6IFelX+FPphjLd72kVujqZ0=
 			</data>
 			<key>hash2</key>
 			<data>
-			AxfWkg/LBk8hSnzG8vTlu7xdKBfUdnwt4fmHzK2casE=
+			2lWiJ8bJPVGxOnQet9iBqV98sK9lH/pi/69t2ibdWpg=
 			</data>
 		</dict>
 		<key>Headers/BabatorProtocols.h</key>
@@ -121,11 +121,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			RisPSsUZVLVfEwXFbxGGB96GZyM=
+			q+hznXtgFb/WswluRGIohVO84xo=
 			</data>
 			<key>hash2</key>
 			<data>
-			Wg6P3r+WjSzbFo7ruRifNyHdnv2Y55yFxv5XkHF2HkU=
+			eQqHqrJF7d3dnz04Fzk46NMfZrz2n54le4LBavABe5A=
 			</data>
 		</dict>
 		<key>Headers/BabatorViewController.h</key>
