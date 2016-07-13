@@ -70,11 +70,20 @@
     } completion:nil];
 }
 
+- (void)replaceVideoAndPlay:(NSURL *)url {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.mpPlayer.moviePlayer stop];
+        if (url) {
+            NSLog(@"video-url: %@", url);
+            [self.mpPlayer.moviePlayer setContentURL:url];
+        }
+        [self.mpPlayer.moviePlayer play];
+    });
+}
+
 #pragma mark BabatorViewControllerDelegate
 - (void)controller:(BabatorViewController *)controller didSelectVideo:(id<BBVideoParams>)videoParams {
-    [self.mpPlayer.moviePlayer stop];
-    [self.mpPlayer.moviePlayer setContentURL:videoParams.url];
-    [self.mpPlayer.moviePlayer play];
+    [self replaceVideoAndPlay:videoParams.url];
 }
 
 @end
