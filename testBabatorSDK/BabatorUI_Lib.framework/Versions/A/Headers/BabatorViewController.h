@@ -20,8 +20,9 @@
 
 @interface BabatorViewController : UIViewController
 - (instancetype)initWithAPIKey:(NSString *)apiKey;
-- (void)addPlayer:(id)player;
+- (void)setPlayer:(id)player pageId:(NSString *)pageId;
 - (void)loadBabatorRecommendationsInto:(UIViewController *)parentViewController;
+- (void)removeBabatorRecommendations;
 
 @property (nonatomic, weak) id<BabatorViewControllerDelegate> delegate;
 @property (nonatomic) BabatorRecommendationType type;

@@ -10,7 +10,7 @@
 #import <MediaPlayer/MPMoviePlayerViewController.h>
 #import <MediaPlayer/MPMoviePlayerController.h>
 
-#import <BabatorUI/BabatorUI.h>
+#import <BabatorUI_Lib/BabatorUI.h>
 
 @interface ViewController () <BabatorViewControllerDelegate>
 
@@ -24,22 +24,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _mpPlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:@"http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4"]];
+    
+    _mpPlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:@"http:\/\/mediadownload.calcalist.co.il\/Calcalist_TV\/2015\/sony_xperia_z5.mp4?source=babator"]];
     _mpPlayer.moviePlayer.shouldAutoplay = YES;
-    _mpPlayer.moviePlayer.controlStyle = MPMovieControlStyleEmbedded;
+    [_mpPlayer.moviePlayer setControlStyle:MPMovieControlStyleFullscreen];
     [self addChildViewController:self.mpPlayer];
     CGSize screen = self.view.frame.size;
-    _playerRect = self.mpPlayer.view.frame = (CGRect){0, 64, screen.width, (screen.width / 16) * 9};
+    _playerRect = CGRectMake(0, 0, screen.width, screen.height);
     [self.view addSubview:_mpPlayer.view];
     _babtorViewController = [[BabatorViewController alloc] initWithAPIKey:@"d035223d-8bba-40d2-bb13-5a22298250c6"];
     _babtorViewController.suggestionsSize = 10;
-    [_babtorViewController addPlayer:self.mpPlayer.moviePlayer];
+    [_babtorViewController setPlayer:self.mpPlayer.moviePlayer pageId:@"someid"];
     _babtorViewController.delegate = self;
     [_babtorViewController loadBabatorRecommendationsInto:self];
-    //CGFloat listY = self.mpPlayer.view.frame.size.height + self.mpPlayer.view.frame.origin.y;
-    //CGFloat listHeight = screen.height - listY;
-    //[self.view addSubview:_babtorViewController.view];
-   // _babtorViewController.view.frame = (CGRect){0, listY, screen.width, listHeight};
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

@@ -1,6 +1,0 @@
-framework module BabatorUI {
-  umbrella header "BabatorUI.h"
-
-  export *
-  module * { export * }
-}
