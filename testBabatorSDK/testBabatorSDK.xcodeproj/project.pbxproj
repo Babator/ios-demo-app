@@ -13,6 +13,8 @@
 		BF3FE8501CE925C100A6353B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF3FE84E1CE925C100A6353B /* Main.storyboard */; };
 		BF3FE8521CE925C100A6353B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF3FE8511CE925C100A6353B /* Assets.xcassets */; };
 		BF3FE8551CE925C100A6353B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF3FE8531CE925C100A6353B /* LaunchScreen.storyboard */; };
+		D27349191D393C350072F021 /* BabatorUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D27349181D393C350072F021 /* BabatorUI.framework */; };
+		D273491A1D393C350072F021 /* BabatorUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D27349181D393C350072F021 /* BabatorUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -22,6 +24,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				D273491A1D393C350072F021 /* BabatorUI.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -39,6 +42,7 @@
 		BF3FE8511CE925C100A6353B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF3FE8541CE925C100A6353B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF3FE8561CE925C100A6353B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D27349181D393C350072F021 /* BabatorUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BabatorUI.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D27349191D393C350072F021 /* BabatorUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,6 +60,7 @@
 		BF3FE8391CE925C000A6353B = {
 			isa = PBXGroup;
 			children = (
+				D27349181D393C350072F021 /* BabatorUI.framework */,
 				BF3FE8441CE925C000A6353B /* testBabatorSDK */,
 				BF3FE8431CE925C000A6353B /* Products */,
 			);
