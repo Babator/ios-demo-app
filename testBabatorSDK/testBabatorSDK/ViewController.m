@@ -10,7 +10,7 @@
 #import <MediaPlayer/MPMoviePlayerViewController.h>
 #import <MediaPlayer/MPMoviePlayerController.h>
 
-#import <BabatorUI_Lib/BabatorUI.h>
+#import <BabatorUI/BabatorUI.h>
 
 @interface ViewController () <BabatorViewControllerDelegate>
 
