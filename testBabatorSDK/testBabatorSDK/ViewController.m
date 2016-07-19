@@ -10,6 +10,7 @@
 #import <MediaPlayer/MPMoviePlayerViewController.h>
 #import <MediaPlayer/MPMoviePlayerController.h>
 
+//#import <BabatorUI/BabatorUI.h>
 #import <BabatorUI_Lib/BabatorUI.h>
 
 @interface ViewController () <BabatorViewControllerDelegate>
@@ -78,9 +79,6 @@
     [self replaceVideoAndPlay:videoParams.url];
 }
 
-- (void)playNextSuggetion:(id<BBVideoParams>)videoParams {
-    [self replaceVideoAndPlay:videoParams.url];
-}
 
 - (void)replaceVideoAndPlay:(NSURL *)url {
     dispatch_async(dispatch_get_main_queue(), ^{
