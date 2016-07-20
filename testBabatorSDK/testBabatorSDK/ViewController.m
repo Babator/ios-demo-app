@@ -36,7 +36,11 @@
     _playerRect = CGRectMake(0, 0, screen.width, screen.height);
     [self.view addSubview:_mpPlayer.view];
     _babtorViewController = [[BabatorViewController alloc] initWithAPIKey:@"d035223d-8bba-40d2-bb13-5a22298250c6"];
+
     _babtorViewController.suggestionsSize = 10;
+    [[NSNotificationCenter defaultCenter] removeObserver:self.mpPlayer
+                                                    name:MPMoviePlayerPlaybackDidFinishNotification
+                                                  object:nil];
     [_babtorViewController setPlayer:self.mpPlayer pageId:@"someId"];
     _babtorViewController.delegate = self;
 

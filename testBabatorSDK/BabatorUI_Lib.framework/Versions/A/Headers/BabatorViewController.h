@@ -14,8 +14,6 @@
 @protocol BabatorViewControllerDelegate <NSObject>
 
 - (void)controller:(BabatorViewController *)controller didSelectVideo:(id<BBVideoParams>)videoParams;
-@optional
-- (void)playNextSuggetion:(id<BBVideoParams>)videoParams;
 @end
 
 @interface BabatorViewController : UIViewController
