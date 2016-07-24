@@ -55,16 +55,6 @@
     }
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    if (_mpPlayer.moviePlayer.fullscreen) {
-        return;
-    }
-    
-    [_babtorViewController removeBabatorRecommendations];
-    _babtorViewController = nil;
-    [_mpPlayer.moviePlayer stop];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
