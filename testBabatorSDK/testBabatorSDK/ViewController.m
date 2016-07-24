@@ -85,6 +85,11 @@
     [self replaceVideoAndPlay:videoParams.url];
 }
 
+- (void)didSelectDone:(BabatorViewController *)contoller {
+    [self.mpPlayer dismissViewControllerAnimated:YES completion:^{
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+}
 
 - (void)replaceVideoAndPlay:(NSURL *)url {
     dispatch_async(dispatch_get_main_queue(), ^{
