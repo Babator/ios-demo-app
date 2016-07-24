@@ -39,10 +39,9 @@
         
         //If player is passed to the framework, you need to remove the observer.
         //If view controller is passed, the framework will remove the observer.
-        [[NSNotificationCenter defaultCenter] removeObserver:_mpPlayer
+        [[NSNotificationCenter defaultCenter] removeObserver:self.mpPlayer
                                                         name:MPMoviePlayerPlaybackDidFinishNotification
                                                       object:nil];
-        
         [self presentMoviePlayerViewControllerAnimated:_mpPlayer];
         
         CGSize screen = self.view.frame.size;
@@ -52,9 +51,6 @@
         
         //For better results, pageId should be unique per View (For example, it can be a category name)
         [_babtorViewController setPlayer:self.mpPlayer pageId:@"someId"];
-        [[NSNotificationCenter defaultCenter] removeObserver:self.mpPlayer
-                                                        name:MPMoviePlayerPlaybackDidFinishNotification
-                                                      object:nil];
         _babtorViewController.delegate = self;
     }
 }
