@@ -29,6 +29,9 @@
     _mpPlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:@"http:\/\/mediadownload.calcalist.co.il\/Calcalist_TV\/2015\/sony_xperia_z5.mp4?source=babator"]];
     _mpPlayer.moviePlayer.shouldAutoplay = YES;
     [_mpPlayer.moviePlayer setControlStyle:MPMovieControlStyleFullscreen];
+    
+    //If player is passed to the framework, you need to remove the observer.
+    //If view controller is passed, the framework will remove the observer.
     [[NSNotificationCenter defaultCenter] removeObserver:_mpPlayer
                                                     name:MPMoviePlayerPlaybackDidFinishNotification
                                                   object:nil];
@@ -40,6 +43,8 @@
     [self.view addSubview:_mpPlayer.view];
     _babtorViewController = [[BabatorViewController alloc] initWithAPIKey:@"d035223d-8bba-40d2-bb13-5a22298250c6"];
     _babtorViewController.suggestionsSize = 10;
+    
+    //For better results, pageId should be unique per View (For example, it can be a category name)
     [_babtorViewController setPlayer:self.mpPlayer.moviePlayer pageId:@"someId"];
     [[NSNotificationCenter defaultCenter] removeObserver:self.mpPlayer
                                                     name:MPMoviePlayerPlaybackDidFinishNotification
