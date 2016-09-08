@@ -7,15 +7,15 @@
 //
 
 #import "ViewController.h"
-#import <MediaPlayer/MPMoviePlayerViewController.h>
-#import <MediaPlayer/MPMoviePlayerController.h>
+#import <AVKit/AVKit.h>
+#import <AVFoundation/AVFoundation.h>
 
-//#import <BabatorUI/BabatorUI.h>
-#import <BabatorUI_Lib/BabatorUI.h>
+#import <BabatorUI/BabatorUI.h>
+//#import <BabatorUI_Lib/BabatorUI.h>
 
 @interface ViewController () <BabatorViewControllerDelegate>
 
-@property (nonatomic,strong) MPMoviePlayerViewController *mpPlayer;
+@property (nonatomic,strong) AVPlayerViewController *avPlayer;
 @property (nonatomic, strong) BabatorViewController *babtorViewController;
 @property (nonatomic) CGRect playerRect;
 
@@ -32,27 +32,26 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (!_mpPlayer) {
-        _mpPlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:@"http:\/\/mediadownload.calcalist.co.il\/Calcalist_TV\/2015\/sony_xperia_z5.mp4?source=babator"]];
-        _mpPlayer.moviePlayer.shouldAutoplay = YES;
-        [_mpPlayer.moviePlayer setControlStyle:MPMovieControlStyleFullscreen];
-        
-        //If player is passed to the framework, you need to remove the observer.
-        //If view controller is passed, the framework will remove the observer.
-        [[NSNotificationCenter defaultCenter] removeObserver:self.mpPlayer
-                                                        name:MPMoviePlayerPlaybackDidFinishNotification
-                                                      object:nil];
-        [self presentMoviePlayerViewControllerAnimated:_mpPlayer];
-        
-        CGSize screen = self.view.frame.size;
-        _playerRect = CGRectMake(0, 0, screen.width, screen.height);
-        _babtorViewController = [[BabatorViewController alloc] initWithAPIKey:@"d035223d-8bba-40d2-bb13-5a22298250c6"];
-        _babtorViewController.suggestionsSize = 10;
-        
-        //For better results, pageId should be unique per View (For example, it can be a category name)
-        [_babtorViewController setPlayer:self.mpPlayer pageId:@"someId"];
-        _babtorViewController.delegate = self;
-    }
+    self.view.translatesAutoresizingMaskIntoConstraints = NO;
+    NSURL *mediaUrl = [NSURL URLWithString:@"http:\/\/mediadownload.calcalist.co.il\/Calcalist_TV\/2015\/sony_xperia_z5.mp4?source=babator"];
+    
+    AVPlayer *player = [AVPlayer playerWithURL:mediaUrl];
+    _avPlayer = [AVPlayerViewController new];
+    _avPlayer.player = player;
+    [self presentViewController:_avPlayer animated:NO completion:nil];
+    [_avPlayer.player play];
+    CGSize screen = self.view.frame.size;
+    _playerRect = CGRectMake(0, 0, screen.width, screen.height);
+    //    [self.view addSubview:_mpPlayer.view];
+    _babtorViewController = [[BabatorViewController alloc] initWithAPIKey:@"d035223d-8bba-40d2-bb13-5a22298250c6"];
+    _babtorViewController.suggestionsSize = 10;
+    
+    //For better results, pageId should be unique per View (For example, it can be a category name)
+    [_babtorViewController setPlayer:self.avPlayer pageId:@"AVViewController"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self.avPlayer.player
+                                                    name:AVPlayerItemDidPlayToEndTimeNotification
+                                                  object:nil];
+    _babtorViewController.delegate = self;
 }
 
 
@@ -62,16 +61,16 @@
 }
 
 - (void)dealloc {
-    _mpPlayer = nil;
+    _avPlayer = nil;
     NSLog(@"dealloc");
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
         if (size.width < size.height) {
-            _mpPlayer.view.frame = _playerRect;
+            _avPlayer.view.frame = _playerRect;
         } else {
-            _mpPlayer.view.frame = (CGRect){CGPointZero, size};
+            _avPlayer.view.frame = (CGRect){CGPointZero, size};
         }
     } completion:nil];
 }
@@ -82,28 +81,30 @@
 }
 
 - (void)didSelectDone:(BabatorViewController *)contoller {
-    [self.mpPlayer dismissViewControllerAnimated:YES completion:^{
+    [self.avPlayer dismissViewControllerAnimated:YES completion:^{
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }
 
 - (void)replaceVideoAndPlay:(NSURL *)url {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.mpPlayer.moviePlayer stop];
+        [self.avPlayer.player pause];
+        [self.avPlayer.player seekToTime:kCMTimeZero];
         if (url) {
             NSLog(@"video-url: %@", url);
-            [self.mpPlayer.moviePlayer setContentURL:url];
+            AVPlayerItem *item = [AVPlayerItem playerItemWithURL:url];
+            [self.avPlayer.player replaceCurrentItemWithPlayerItem:item];
         }
-        [self.mpPlayer.moviePlayer play];
+        [self.avPlayer.player play];
     });
 }
 
 - (IBAction)play:(id)sender {
-    [self.mpPlayer.moviePlayer play];
+    [self.avPlayer.player play];
 }
 
 - (IBAction)pause:(id)sender {
-    [self.mpPlayer.moviePlayer pause];
+    [self.avPlayer.player pause];
 }
 
 - (IBAction)removeNativePlayerControls:(id)sender {
