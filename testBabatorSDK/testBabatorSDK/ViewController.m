@@ -77,7 +77,7 @@
 
 #pragma mark BabatorViewControllerDelegate
 - (void)controller:(BabatorViewController *)controller didSelectVideo:(id<BBVideoParams>)videoParams {
-    [self replaceVideoAndPlay:videoParams.url];
+   // [self replaceVideoAndPlay:videoParams.url];
 }
 
 - (void)didSelectDone:(BabatorViewController *)contoller {
@@ -86,6 +86,7 @@
     }];
 }
 
+/*
 - (void)replaceVideoAndPlay:(NSURL *)url {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.avPlayer.player pause];
@@ -98,7 +99,7 @@
         [self.avPlayer.player play];
     });
 }
-
+*/
 - (IBAction)play:(id)sender {
     [self.avPlayer.player play];
 }
