@@ -10,8 +10,8 @@
 #import <AVKit/AVKit.h>
 #import <AVFoundation/AVFoundation.h>
 
-#import <BabatorUI/BabatorUI.h>
-//#import <BabatorUI_Lib/BabatorUI.h>
+//#import <BabatorUI/BabatorUI.h>
+#import <BabatorUI_Lib/BabatorUI.h>
 
 @interface ViewController () <BabatorViewControllerDelegate>
 
