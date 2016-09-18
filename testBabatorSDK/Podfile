@@ -1,0 +1,3 @@
+target "testBabatorSDK" do
+pod 'BabatorUI', :git => 'https://github.com/Babator/Babator-iOS-native-SDK.git', :branch => 'master'
+end

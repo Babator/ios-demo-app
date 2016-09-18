@@ -1,0 +1,27 @@
+{
+  "name": "BabatorUI",
+  "version": "0.2.1",
+  "authors": {
+    "BabatorUI": "info@babator.com"
+  },
+  "license": {
+    "type": "Commercial",
+    "text": "http://www.babator.com/privacypolicy/"
+  },
+  "summary": "Framework for presenting Babator’s viewers personalized videos to match their varied interests.",
+  "homepage": "http://www.babator.com/",
+  "source": {
+    "git": "https://github.com/Babator/Babator-iOS-native-SDK.git"
+  },
+  "ios": {
+    "vendored_frameworks": "BabatorUI.framework"
+  },
+  "xcconfig": {
+    "FRAMEWORK_SEARCH_PATHS": "\"${SRCROOT}/Pods/\""
+  },
+  "preserve_paths": "BabatorUI.framework",
+  "platforms": {
+    "ios": "8.0"
+  },
+  "requires_arc": true
+}
