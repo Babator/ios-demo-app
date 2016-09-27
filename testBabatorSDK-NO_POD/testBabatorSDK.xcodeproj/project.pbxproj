@@ -13,16 +13,18 @@
 		BF3FE8501CE925C100A6353B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF3FE84E1CE925C100A6353B /* Main.storyboard */; };
 		BF3FE8521CE925C100A6353B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF3FE8511CE925C100A6353B /* Assets.xcassets */; };
 		BF3FE8551CE925C100A6353B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF3FE8531CE925C100A6353B /* LaunchScreen.storyboard */; };
-		E4E6A857F6206DCDC7AC3224 /* libPods-testBabatorSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABFCEC0FB16BC7FB088B0BC3 /* libPods-testBabatorSDK.a */; };
+		D22BBA691D97D36600CFE73B /* BabatorUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D22BBA681D97D36600CFE73B /* BabatorUI.framework */; };
+		D22BBA6A1D97D36600CFE73B /* BabatorUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D22BBA681D97D36600CFE73B /* BabatorUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		BF27A9F21D0AE72000256D79 /* Embed Frameworks */ = {
+		D2FE579D1D902AC400D7A149 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				D22BBA6A1D97D36600CFE73B /* BabatorUI.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -30,9 +32,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3B65A17E6BB8E8E8846BC1F1 /* Pods-testBabatorSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-testBabatorSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-testBabatorSDK/Pods-testBabatorSDK.release.xcconfig"; sourceTree = "<group>"; };
-		ABFCEC0FB16BC7FB088B0BC3 /* libPods-testBabatorSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-testBabatorSDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		AD558C7011F5C32EDDD9109F /* Pods-testBabatorSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-testBabatorSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-testBabatorSDK/Pods-testBabatorSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		BF3FE8421CE925C000A6353B /* testBabatorSDK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testBabatorSDK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF3FE8461CE925C000A6353B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BF3FE8481CE925C100A6353B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -43,6 +42,7 @@
 		BF3FE8511CE925C100A6353B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF3FE8541CE925C100A6353B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF3FE8561CE925C100A6353B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D22BBA681D97D36600CFE73B /* BabatorUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BabatorUI.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,29 +50,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4E6A857F6206DCDC7AC3224 /* libPods-testBabatorSDK.a in Frameworks */,
+				D22BBA691D97D36600CFE73B /* BabatorUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6E1D20D7C124933DB9FA9D32 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				AD558C7011F5C32EDDD9109F /* Pods-testBabatorSDK.debug.xcconfig */,
-				3B65A17E6BB8E8E8846BC1F1 /* Pods-testBabatorSDK.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		BF3FE8391CE925C000A6353B = {
 			isa = PBXGroup;
 			children = (
+				D22BBA681D97D36600CFE73B /* BabatorUI.framework */,
 				BF3FE8441CE925C000A6353B /* testBabatorSDK */,
 				BF3FE8431CE925C000A6353B /* Products */,
-				6E1D20D7C124933DB9FA9D32 /* Pods */,
-				C1D36A4DE3346968E38D6805 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -108,14 +98,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C1D36A4DE3346968E38D6805 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				ABFCEC0FB16BC7FB088B0BC3 /* libPods-testBabatorSDK.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -123,13 +105,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BF3FE8591CE925C100A6353B /* Build configuration list for PBXNativeTarget "testBabatorSDK" */;
 			buildPhases = (
-				C85881716CA2CE2237420303 /* Check Pods Manifest.lock */,
 				BF3FE83E1CE925C000A6353B /* Sources */,
 				BF3FE83F1CE925C000A6353B /* Frameworks */,
 				BF3FE8401CE925C000A6353B /* Resources */,
-				BF27A9F21D0AE72000256D79 /* Embed Frameworks */,
-				5B90DE0B449451AC7B7EFBF5 /* Embed Pods Frameworks */,
-				1E55F50CA6046BD6A60C24BA /* Copy Pods Resources */,
+				D2FE579D1D902AC400D7A149 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -152,6 +131,7 @@
 					BF3FE8411CE925C000A6353B = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 32938SX4XH;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -185,54 +165,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		1E55F50CA6046BD6A60C24BA /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-testBabatorSDK/Pods-testBabatorSDK-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5B90DE0B449451AC7B7EFBF5 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-testBabatorSDK/Pods-testBabatorSDK-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C85881716CA2CE2237420303 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BF3FE83E1CE925C000A6353B /* Sources */ = {
@@ -285,6 +217,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -330,6 +263,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -353,9 +287,10 @@
 		};
 		BF3FE85A1CE925C100A6353B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AD558C7011F5C32EDDD9109F /* Pods-testBabatorSDK.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 32938SX4XH;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -363,7 +298,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = testBabatorSDK/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -371,14 +306,18 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.babator.testBabatorSDK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		BF3FE85B1CE925C100A6353B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B65A17E6BB8E8E8846BC1F1 /* Pods-testBabatorSDK.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 32938SX4XH;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -386,7 +325,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = testBabatorSDK/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -394,6 +333,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.babator.testBabatorSDK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
