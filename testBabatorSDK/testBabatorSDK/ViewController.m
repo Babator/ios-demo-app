@@ -33,7 +33,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.view.translatesAutoresizingMaskIntoConstraints = NO;
-    NSURL *mediaUrl = [NSURL URLWithString:@"http:\/\/mediadownload.calcalist.co.il\/Calcalist_TV\/2015\/sony_xperia_z5.mp4?source=babator"];
+    NSURL *mediaUrl = [NSURL URLWithString:@"http://rmcdn.2mdn.net/MotifFiles/html/1248596/android_1330378998288.mp4"];
     
     AVPlayer *player = [AVPlayer playerWithURL:mediaUrl];
     _avPlayer = [AVPlayerViewController new];
@@ -43,7 +43,7 @@
     CGSize screen = self.view.frame.size;
     _playerRect = CGRectMake(0, 0, screen.width, screen.height);
     //    [self.view addSubview:_mpPlayer.view];
-    _babtorViewController = [[BabatorViewController alloc] initWithAPIKey:@"d035223d-8bba-40d2-bb13-5a22298250c6"];
+    _babtorViewController = [[BabatorViewController alloc] initWithAPIKey:@"bc430aa0-bac6-11e6-b8b8-8dc25ecc1eb0"];
     _babtorViewController.suggestionsSize = 10;
     
     //For better results, pageId should be unique per View (For example, it can be a category name)
