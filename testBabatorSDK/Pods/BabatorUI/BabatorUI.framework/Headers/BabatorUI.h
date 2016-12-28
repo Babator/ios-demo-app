@@ -14,6 +14,7 @@ FOUNDATION_EXPORT double BabatorUIVersionNumber;
 //! Project version string for BabatorUI.
 FOUNDATION_EXPORT const unsigned char BabatorUIVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <BabatorUI/PublicHeader.h>
+// In this header, you should import all the public headers of your framework using statements like
 
-#import "BabatorViewController.h"
+#import <BabatorUI/BabatorViewController.h>
+#import <BabatorUI/BBAdEventsDelegate.h>

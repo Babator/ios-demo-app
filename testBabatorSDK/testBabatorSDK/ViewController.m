@@ -1,35 +1,29 @@
 //
 //  ViewController.m
-//  testBabatorSDK
+//  TestPods
 //
-//  Created by Eliza Sapir on 16/05/2016.
-//  Copyright © 2016 Babator. All rights reserved.
+//  Created by Nissim Pardo on 27/12/2016.
+//  Copyright © 2016 babator. All rights reserved.
 //
 
 #import "ViewController.h"
+#import <BabatorUI/BabatorUI.h>
 #import <AVKit/AVKit.h>
 #import <AVFoundation/AVFoundation.h>
 
-#import <BabatorUI/BabatorUI.h>
-//#import <BabatorUI_Lib/BabatorUI.h>
-
 @interface ViewController () <BabatorViewControllerDelegate>
-
-@property (nonatomic,strong) AVPlayerViewController *avPlayer;
-@property (nonatomic, strong) BabatorViewController *babtorViewController;
-@property (nonatomic) CGRect playerRect;
-
-@end
+    @property (nonatomic,strong) AVPlayerViewController *avPlayer;
+    @property (nonatomic, strong) BabatorViewController *babtorViewController;
+    @property (nonatomic) CGRect playerRect;
+    @end
 
 @implementation ViewController
-
+    
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
-
+    // Do any additional setup after loading the view, typically from a nib.
 }
-
+    
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.view.translatesAutoresizingMaskIntoConstraints = NO;
@@ -43,72 +37,44 @@
     CGSize screen = self.view.frame.size;
     _playerRect = CGRectMake(0, 0, screen.width, screen.height);
     //    [self.view addSubview:_mpPlayer.view];
-    _babtorViewController = [[BabatorViewController alloc] initWithAPIKey:@"bc430aa0-bac6-11e6-b8b8-8dc25ecc1eb0"];
-    _babtorViewController.suggestionsSize = 10;
-    
+    _babtorViewController = [[BabatorViewController alloc] initWithAPIKey:@"34e91060-d0dc-11e5-8fe6-19263f12cd2a"];
+    _babtorViewController.suggestionsSize = 6;
+    _babtorViewController.videoHolder = self.avPlayer.view;
     //For better results, pageId should be unique per View (For example, it can be a category name)
-    [_babtorViewController setPlayer:self.avPlayer pageId:@"AVViewController"];
+    [_babtorViewController setPlayer:self.avPlayer.player pageId:@"AVViewController"];
     [[NSNotificationCenter defaultCenter] removeObserver:self.avPlayer.player
                                                     name:AVPlayerItemDidPlayToEndTimeNotification
                                                   object:nil];
     _babtorViewController.delegate = self;
 }
-
-
+    
+    
+    
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-- (void)dealloc {
-    _avPlayer = nil;
-    NSLog(@"dealloc");
-}
-
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-        if (size.width < size.height) {
-            _avPlayer.view.frame = _playerRect;
-        } else {
-            _avPlayer.view.frame = (CGRect){CGPointZero, size};
-        }
-    } completion:nil];
-}
-
+    
 #pragma mark BabatorViewControllerDelegate
 - (void)controller:(BabatorViewController *)controller didSelectVideo:(id<BBVideoParams>)videoParams {
-   // [self replaceVideoAndPlay:videoParams.url];
+    if(videoParams != nil){
+        NSString *url = [[videoParams url] absoluteString];
+    }
+    
 }
-
-- (void)didSelectDone:(BabatorViewController *)contoller {
-    [self.avPlayer dismissViewControllerAnimated:YES completion:^{
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
+    
+- (void) controller:(BabatorViewController *)controller willChangeSource:(id<BBVideoParams>)videoSource {
+    if(videoSource != nil){
+        NSString *url = [[videoSource url] absoluteString];
+    }
 }
-
-/*
-- (void)replaceVideoAndPlay:(NSURL *)url {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.avPlayer.player pause];
-        [self.avPlayer.player seekToTime:kCMTimeZero];
-        if (url) {
-            NSLog(@"video-url: %@", url);
-            AVPlayerItem *item = [AVPlayerItem playerItemWithURL:url];
-            [self.avPlayer.player replaceCurrentItemWithPlayerItem:item];
-        }
-        [self.avPlayer.player play];
-    });
+    
+- (void) controller:(BabatorViewController *)controller didChangeSource:(id<BBVideoParams>)videoSource {
+    if(videoSource != nil){
+        NSString *url = [[videoSource url] absoluteString];
+    }
 }
-*/
-- (IBAction)play:(id)sender {
-    [self.avPlayer.player play];
-}
-
-- (IBAction)pause:(id)sender {
-    [self.avPlayer.player pause];
-}
-
-- (IBAction)removeNativePlayerControls:(id)sender {
-    //    self.mpPlayer.moviePlayer.controlStyle = MPMovieControlStyleNone;
-}
-@end
+    
+    
+    
+    @end
