@@ -59,6 +59,9 @@
 - (void)controller:(BabatorViewController *)controller didSelectVideo:(id<BBVideoParams>)videoParams {
     if(videoParams != nil){
         NSString *url = [[videoParams url] absoluteString];
+        NSLog(@"url: %@", url);
+        NSString *pageUrl = [videoParams pageUrl];
+        NSLog(@"pageUrl: %@", pageUrl);
     }
     
 }
@@ -66,12 +69,18 @@
 - (void) controller:(BabatorViewController *)controller willChangeSource:(id<BBVideoParams>)videoSource {
     if(videoSource != nil){
         NSString *url = [[videoSource url] absoluteString];
+        NSLog(@"url: %@", url);
+        NSString *pageUrl = [videoSource pageUrl];
+        NSLog(@"pageUrl: %@", pageUrl);
     }
 }
     
 - (void) controller:(BabatorViewController *)controller didChangeSource:(id<BBVideoParams>)videoSource {
     if(videoSource != nil){
         NSString *url = [[videoSource url] absoluteString];
+        NSLog(@"url: %@", url);
+        NSString *pageUrl = [videoSource pageUrl];
+        NSLog(@"pageUrl: %@", pageUrl);
     }
 }
     

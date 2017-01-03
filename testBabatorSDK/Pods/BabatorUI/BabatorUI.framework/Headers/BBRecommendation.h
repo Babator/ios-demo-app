@@ -31,6 +31,7 @@
 @property (nonatomic, copy, readonly) NSNumber *pubDate;
 @property (nonatomic, copy, readonly) NSNumber *percentValue;
 @property (nonatomic, copy, readonly) NSString *category;
+@property (nonatomic, copy, readonly) NSString *pageUrl;
 @property (nonatomic, copy) UIImage *image;
 @property (nonatomic) CGSize size;
 @property (nonatomic) NSInteger index;

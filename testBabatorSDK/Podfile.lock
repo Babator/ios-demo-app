@@ -1,22 +1,22 @@
 PODS:
-  - BabatorUI (0.2.5)
+  - BabatorUI (0.2.6)
 
 DEPENDENCIES:
-  - BabatorUI (from `https://github.com/Babator/Babator-iOS-native-SDK.git`, branch `master`)
+  - BabatorUI (from `https://github.com/Babator/Babator-iOS-native-SDK.git`, tag `v0.2.6`)
 
 EXTERNAL SOURCES:
   BabatorUI:
-    :branch: master
     :git: https://github.com/Babator/Babator-iOS-native-SDK.git
+    :tag: v0.2.6
 
 CHECKOUT OPTIONS:
   BabatorUI:
-    :commit: 36e945424bb8707418dcb6612859c988164370a4
     :git: https://github.com/Babator/Babator-iOS-native-SDK.git
+    :tag: v0.2.6
 
 SPEC CHECKSUMS:
-  BabatorUI: f1903a52e2f14ed9c8c7915bf4366136b749348d
+  BabatorUI: 0abcdc9aafb1545bb39a9e5f387579ae044843e0
 
-PODFILE CHECKSUM: 1786d1df3af773836492db4ba4fbfd912b38c741
+PODFILE CHECKSUM: 6171436d285a2b52184e6d8a3e6db0509fd6b716
 
 COCOAPODS: 1.1.1
